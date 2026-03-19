@@ -3,632 +3,665 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lunive Universe — Premium Topup Shop</title>
+<title>Topup Lunive Universe — Premium Shop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --primary: #B11226;
   --primary-deep: #8B0000;
-  --primary-light: #D4374B;
-  --burgundy: #6B1528;
-  --wine: #4A0E1E;
-  --rose: #E8A0AE;
-  --rose-soft: rgba(232,160,174,0.08);
+  --primary-light: #D4183A;
+  --wine: #6B1020;
+  --rose: #E8324A;
   --gold: #C9A84C;
-  --gold-soft: rgba(201,168,76,0.12);
-  --bg-1: #0f0f12;
-  --bg-2: #131318;
-  --bg-card: #1a1a22;
-  --bg-card-hover: #1f1f2a;
-  --bg-elevated: #22222e;
-  --text-primary: #f0ece6;
-  --text-secondary: #9a959e;
-  --text-muted: #5e5a63;
-  --border: rgba(255,255,255,0.06);
-  --border-hover: rgba(177,18,38,0.3);
-  --glass: rgba(255,255,255,0.03);
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-  --shadow-md: 0 8px 30px rgba(0,0,0,0.4);
-  --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
-  --shadow-glow: 0 0 30px rgba(177,18,38,0.15);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --transition: cubic-bezier(0.4, 0, 0.2, 1);
+  --gold-light: #E4C76B;
+  --bg-base: #0f0f12;
+  --bg-layer2: #13111a;
+  --bg-card: #1a1518;
+  --bg-card2: #1f1c22;
+  --text-primary: #f0edf2;
+  --text-secondary: #a89bb0;
+  --text-muted: #6b6175;
+  --border: rgba(180,80,100,0.15);
+  --border-hover: rgba(180,80,100,0.4);
+  --glow: rgba(177,18,38,0.3);
+  --glow-soft: rgba(177,18,38,0.12);
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-  background: var(--bg-1);
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  background: var(--bg-base);
   color: var(--text-primary);
-  line-height: 1.6;
-  overflow-x: hidden;
   min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
 }
 
-/* NOISE TEXTURE OVERLAY */
+/* Noise texture overlay */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 0;
-  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 128px;
+  z-index: 0;
+  opacity: 0.4;
 }
 
-/* AMBIENT GLOW */
-body::after {
-  content: '';
+/* Ambient glow blobs */
+.ambient-blob {
   position: fixed;
-  top: -200px;
-  right: -200px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(139,0,0,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(80px);
   pointer-events: none;
   z-index: 0;
 }
+.blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(139,0,0,0.08) 0%, transparent 70%); top: -200px; right: -150px; }
+.blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(177,18,38,0.06) 0%, transparent 70%); bottom: 10%; left: -150px; }
+.blob-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%); top: 40%; right: 10%; }
 
-.bg-glow-bl {
-  position: fixed;
-  bottom: -300px;
-  left: -200px;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(107,21,40,0.05) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* SCROLLBAR */
+/* ============ SCROLLBAR ============ */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-1); }
+::-webkit-scrollbar-track { background: var(--bg-base); }
 ::-webkit-scrollbar-thumb { background: var(--wine); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--primary-deep); }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-/* SCROLL PROGRESS */
-#scrollProgress {
+/* ============ TOPBAR ============ */
+#topbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--primary-deep), var(--primary), var(--primary-light));
-  z-index: 10001;
-  transition: width 0.1s linear;
-  width: 0;
-}
-
-/* HEADER */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 64px;
   background: rgba(15,15,18,0.85);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  transition: background 0.3s var(--transition);
+  z-index: 100;
+  transition: all 0.3s ease;
 }
 
-header.scrolled { background: rgba(15,15,18,0.95); }
+#topbar.scrolled {
+  background: rgba(15,15,18,0.96);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
 
-.logo {
+.topbar-left {
   display: flex;
   align-items: center;
-  gap: 12px;
-  cursor: pointer;
+  gap: 14px;
 }
 
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 20px rgba(177,18,38,0.2);
-}
-
-.logo-icon svg { width: 20px; height: 20px; }
-
-.logo-text {
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--text-primary), var(--rose));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.logo-sub {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* HEADER BUTTONS */
-.btn-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: var(--glass);
+.menu-toggle {
+  width: 38px; height: 38px;
+  background: rgba(177,18,38,0.1);
+  border: 1px solid rgba(177,18,38,0.25);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.25s var(--transition);
-  position: relative;
+  transition: all 0.2s ease;
   color: var(--text-secondary);
 }
 
-.btn-icon:hover {
-  border-color: var(--border-hover);
-  background: rgba(177,18,38,0.08);
-  color: var(--primary-light);
-  transform: translateY(-1px);
+.menu-toggle:hover {
+  background: rgba(177,18,38,0.2);
+  border-color: rgba(177,18,38,0.5);
+  color: var(--rose);
+  transform: scale(1.05);
 }
 
-.btn-icon:active { transform: scale(0.95); }
+.logo-text {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #f0edf2 20%, #D4183A 60%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-.btn-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-.cart-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  min-width: 18px;
-  height: 18px;
-  background: var(--primary);
-  border-radius: 9px;
-  font-size: 10px;
+.logo-badge {
+  font-size: 0.6rem;
   font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--gold));
   color: white;
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-left: 2px;
+  vertical-align: middle;
+  -webkit-text-fill-color: white;
+}
+
+.topbar-right {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 5px;
-  border: 2px solid var(--bg-1);
-  transform: scale(0);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  gap: 10px;
 }
 
-.cart-badge.show { transform: scale(1); }
-
-/* SEARCH BAR */
+/* Search bar topbar */
 .search-container {
   position: relative;
-  max-width: 280px;
-  flex: 1;
-  margin: 0 16px;
+  display: flex;
+  align-items: center;
 }
 
-.search-container input {
-  width: 100%;
-  height: 36px;
-  background: var(--glass);
+.search-input {
+  background: rgba(255,255,255,0.04);
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 0 16px 0 36px;
-  font-family: inherit;
-  font-size: 13px;
+  border-radius: 10px;
+  padding: 8px 14px 8px 36px;
   color: var(--text-primary);
+  font-size: 0.85rem;
+  width: 220px;
+  transition: all 0.3s ease;
+  font-family: inherit;
   outline: none;
-  transition: all 0.3s var(--transition);
 }
 
-.search-container input::placeholder { color: var(--text-muted); }
-.search-container input:focus {
-  border-color: var(--border-hover);
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-input:focus {
+  border-color: rgba(177,18,38,0.5);
   background: rgba(177,18,38,0.05);
-  box-shadow: 0 0 0 3px rgba(177,18,38,0.08);
+  width: 260px;
+  box-shadow: 0 0 0 3px rgba(177,18,38,0.1);
 }
 
-.search-container svg {
+.search-icon {
   position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
-  stroke: var(--text-muted);
-  fill: none;
-  stroke-width: 2;
+  left: 10px;
+  color: var(--text-muted);
   pointer-events: none;
 }
 
-/* SIDE MENU */
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.35s var(--transition);
-  backdrop-filter: blur(4px);
+.cart-btn {
+  position: relative;
+  width: 38px; height: 38px;
+  background: rgba(177,18,38,0.1);
+  border: 1px solid rgba(177,18,38,0.25);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
 }
 
-.menu-overlay.open { opacity: 1; visibility: visible; }
+.cart-btn:hover {
+  background: rgba(177,18,38,0.2);
+  border-color: rgba(177,18,38,0.5);
+  color: var(--rose);
+  transform: scale(1.05);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px; right: -5px;
+  min-width: 18px; height: 18px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid var(--bg-base);
+  display: none;
+}
+
+.cart-badge.show { display: flex; }
+
+/* ============ SIDE MENU ============ */
+.side-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.side-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
 
 .side-menu {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
-  height: 100%;
-  background: var(--bg-2);
-  z-index: 2001;
-  transform: translateX(-100%);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow-y: auto;
+  top: 0; left: 0;
+  width: 290px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1a1518 0%, #13111a 100%);
   border-right: 1px solid var(--border);
+  z-index: 201;
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
-.side-menu.open { transform: translateX(0); }
+.side-menu.active {
+  transform: translateX(0);
+  box-shadow: 10px 0 60px rgba(0,0,0,0.6);
+}
 
-.menu-header {
-  padding: 20px 24px;
+.side-menu-header {
+  padding: 20px 20px 16px;
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.menu-header h3 {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
+.side-logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f0edf2, #D4183A, #C9A84C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.menu-close {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
+.side-close {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
   border: 1px solid var(--border);
-  background: transparent;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: var(--text-secondary);
   transition: all 0.2s;
 }
 
-.menu-close:hover { background: rgba(177,18,38,0.1); color: var(--primary-light); }
-.menu-close svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+.side-close:hover { background: rgba(177,18,38,0.15); color: var(--rose); }
 
-.menu-nav { padding: 12px 0; }
+.side-nav { padding: 12px 12px; flex: 1; }
 
-.menu-item {
+.side-nav-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 14px 24px;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.25s var(--transition);
+  transition: all 0.2s ease;
   color: var(--text-secondary);
-  font-size: 14px;
-  font-weight: 500;
+  margin-bottom: 3px;
   position: relative;
+  overflow: hidden;
   opacity: 0;
   transform: translateX(-20px);
 }
 
-.side-menu.open .menu-item {
-  opacity: 1;
-  transform: translateX(0);
-}
+.side-nav-item.revealed { opacity: 1; transform: translateX(0); }
 
-.menu-item:nth-child(1) { transition-delay: 0.08s; }
-.menu-item:nth-child(2) { transition-delay: 0.16s; }
-.menu-item:nth-child(3) { transition-delay: 0.24s; }
-.menu-item:nth-child(4) { transition-delay: 0.32s; }
-.menu-item:nth-child(5) { transition-delay: 0.40s; }
-
-.menu-item::before {
+.side-nav-item::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--primary);
-  border-radius: 0 3px 3px 0;
-  transform: scaleY(0);
-  transition: transform 0.25s var(--transition);
+  inset: 0;
+  background: linear-gradient(90deg, rgba(177,18,38,0.12), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-.menu-item:hover, .menu-item.active {
-  background: rgba(177,18,38,0.06);
+.side-nav-item:hover::before, .side-nav-item.active::before { opacity: 1; }
+
+.side-nav-item:hover, .side-nav-item.active {
   color: var(--text-primary);
+  border-left: 2px solid var(--primary);
+  padding-left: 12px;
 }
 
-.menu-item:hover::before, .menu-item.active::before { transform: scaleY(1); }
-
-.menu-item svg {
-  width: 20px;
-  height: 20px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: all 0.25s;
+.side-nav-item svg {
   flex-shrink: 0;
+  transition: all 0.2s;
 }
 
-.menu-item:hover svg, .menu-item.active svg {
-  stroke: var(--primary-light);
-  transform: scale(1.05);
+.side-nav-item:hover svg, .side-nav-item.active svg {
+  stroke: var(--rose);
+  transform: scale(1.08);
 }
 
-.menu-divider {
+.side-nav-label { font-size: 0.9rem; font-weight: 600; }
+
+.side-nav-divider {
   height: 1px;
-  margin: 8px 24px;
   background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 8px 14px;
 }
 
-/* MAIN */
-main {
-  margin-top: 64px;
+.side-nav-section {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 8px 14px 4px;
+}
+
+.side-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ============ MAIN LAYOUT ============ */
+#app {
   position: relative;
   z-index: 1;
-  min-height: calc(100vh - 64px);
+  min-height: 100vh;
+  padding-top: 64px;
 }
 
-/* HERO SECTION */
-.hero {
-  position: relative;
+/* ============ HERO ============ */
+#hero {
   padding: 80px 24px 60px;
   text-align: center;
+  position: relative;
   overflow: hidden;
 }
 
-.hero::before {
-  content: '';
+.hero-bg-ring {
   position: absolute;
-  top: -100px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(177,18,38,0.08) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(177,18,38,0.06);
   pointer-events: none;
+  animation: ringPulse 4s ease-in-out infinite;
 }
 
-.hero-badge {
+.hero-bg-ring:nth-child(2) { width: 800px; height: 800px; animation-delay: 0.5s; border-color: rgba(177,18,38,0.04); }
+.hero-bg-ring:nth-child(3) { width: 400px; height: 400px; animation-delay: 1s; border-color: rgba(201,168,76,0.05); }
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+}
+
+.hero-tag {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: var(--rose-soft);
-  border: 1px solid rgba(177,18,38,0.15);
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+  gap: 6px;
+  background: rgba(177,18,38,0.1);
+  border: 1px solid rgba(177,18,38,0.25);
   color: var(--rose);
-  margin-bottom: 24px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  animation: fadeInDown 0.6s ease both;
 }
 
-.hero-badge .dot {
-  width: 6px;
-  height: 6px;
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  background: var(--rose);
   border-radius: 50%;
-  background: var(--primary);
-  animation: pulse-dot 2s infinite;
+  animation: blink 1.5s ease infinite;
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.5); }
-}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-.hero h1 {
-  font-size: clamp(32px, 6vw, 56px);
+.hero-title {
+  font-size: clamp(2.2rem, 6vw, 4rem);
   font-weight: 800;
   letter-spacing: -1.5px;
   line-height: 1.1;
   margin-bottom: 16px;
+  animation: fadeInUp 0.7s ease 0.1s both;
 }
 
-.hero h1 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-light), var(--primary), var(--gold));
+.hero-title span {
+  background: linear-gradient(135deg, #D4183A 0%, #E8324A 40%, #C9A84C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200% auto;
-  animation: shimmer 4s ease infinite;
+  background-clip: text;
 }
 
-@keyframes shimmer {
-  0% { background-position: 0% center; }
-  50% { background-position: 100% center; }
-  100% { background-position: 0% center; }
-}
-
-.hero p {
-  font-size: 16px;
+.hero-sub {
+  font-size: 1rem;
   color: var(--text-secondary);
-  max-width: 520px;
+  max-width: 500px;
   margin: 0 auto 32px;
-  font-weight: 400;
+  line-height: 1.6;
+  animation: fadeInUp 0.7s ease 0.2s both;
 }
 
 .hero-stats {
   display: flex;
   justify-content: center;
   gap: 40px;
-  flex-wrap: wrap;
+  margin-top: 40px;
+  animation: fadeInUp 0.7s ease 0.3s both;
 }
 
-.hero-stat {
-  text-align: center;
-}
-
-.hero-stat .num {
-  font-size: 28px;
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-size: 1.8rem;
   font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--primary-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+}
+.hero-stat-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+
+/* 3D Floating Card */
+.hero-3d-scene {
+  perspective: 800px;
+  margin: 40px auto 0;
+  width: 340px;
+  height: 200px;
+  animation: fadeInUp 0.8s ease 0.4s both;
 }
 
-.hero-stat .num span { color: var(--primary-light); }
-
-.hero-stat .label {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 4px;
-}
-
-/* FLOATING PARTICLES */
-.particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+.hero-3d-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: float3d 6s ease-in-out infinite;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1f1c22 0%, #2a1f25 50%, #1a1518 100%);
+  border: 1px solid rgba(177,18,38,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(177,18,38,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  gap: 20px;
   overflow: hidden;
 }
 
-.particle {
+.hero-3d-card::before {
+  content: '';
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--primary);
-  border-radius: 50%;
-  opacity: 0;
-  animation: float-particle linear infinite;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  animation: shimmer 3s ease infinite;
 }
 
-@keyframes float-particle {
-  0% { opacity: 0; transform: translateY(100%) scale(0); }
-  10% { opacity: 0.3; }
-  90% { opacity: 0.1; }
-  100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+@keyframes shimmer { 0% { left: -100%; } 100% { left: 200%; } }
+
+.hero-3d-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(177,18,38,0.08) 0%, transparent 50%, rgba(201,168,76,0.05) 100%);
+  pointer-events: none;
 }
 
-/* SECTION */
-.section {
-  padding: 40px 24px 60px;
+@keyframes float3d {
+  0%, 100% { transform: rotateX(5deg) rotateY(-5deg) translateY(0px); }
+  25% { transform: rotateX(3deg) rotateY(5deg) translateY(-8px); }
+  50% { transform: rotateX(-3deg) rotateY(3deg) translateY(-4px); }
+  75% { transform: rotateX(5deg) rotateY(-3deg) translateY(-10px); }
+}
+
+.card-3d-icon {
+  width: 60px; height: 60px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(177,18,38,0.4);
+}
+
+.card-3d-info { flex: 1; }
+.card-3d-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+.card-3d-sub { font-size: 0.75rem; color: var(--text-secondary); }
+.card-3d-price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-top: 8px;
+}
+.card-3d-badge {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ============ SECTIONS ============ */
+.section-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 60px 24px;
 }
 
 .section-header {
-  margin-bottom: 32px;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.section-tag-line {
+  width: 20px; height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
   font-weight: 800;
   letter-spacing: -0.5px;
-  margin-bottom: 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
+  position: relative;
+  display: inline-block;
 }
 
 .section-title::after {
   content: '';
-  display: block;
-  flex: 1;
-  min-width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--primary), transparent);
-  border-radius: 1px;
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  border-radius: 2px;
 }
 
-.section-subtitle {
-  font-size: 14px;
-  color: var(--text-muted);
-  font-weight: 400;
+.section-sub {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 16px;
+  line-height: 1.6;
 }
 
-/* CATEGORY TABS */
-.category-tabs {
+/* ============ CATEGORY BADGES ============ */
+.category-filter {
   display: flex;
   gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  margin-bottom: 24px;
-  scrollbar-width: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 32px;
 }
 
-.category-tabs::-webkit-scrollbar { display: none; }
-
-.cat-tab {
-  padding: 8px 18px;
+.cat-badge {
+  padding: 7px 16px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 0.78rem;
   font-weight: 600;
-  white-space: nowrap;
-  cursor: pointer;
   border: 1px solid var(--border);
-  background: var(--glass);
+  background: rgba(255,255,255,0.02);
   color: var(--text-secondary);
-  transition: all 0.25s var(--transition);
-  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.cat-tab:hover {
-  border-color: var(--border-hover);
-  color: var(--text-primary);
+.cat-badge:hover, .cat-badge.active {
+  background: rgba(177,18,38,0.12);
+  border-color: rgba(177,18,38,0.4);
+  color: var(--rose);
 }
 
-.cat-tab.active {
-  background: linear-gradient(135deg, var(--primary-deep), var(--primary));
-  border-color: var(--primary);
-  color: white;
-  box-shadow: 0 4px 15px rgba(177,18,38,0.25);
-}
-
-/* PRODUCT CARDS */
-.products-grid {
+/* ============ PRODUCT GRID ============ */
+.product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
 }
 
 .product-card {
-  background: var(--bg-card);
+  background: linear-gradient(135deg, #1a1518 0%, #1f1c22 100%);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 16px 18px;
+  border-radius: 16px;
+  padding: 18px;
   display: flex;
-  align-items: center;
   gap: 14px;
-  transition: all 0.3s var(--transition);
+  align-items: flex-start;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
 }
 
 .product-card.revealed {
@@ -639,525 +672,465 @@ main {
 .product-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(177,18,38,0.15), transparent);
+  background: linear-gradient(90deg, transparent, rgba(177,18,38,0.4), transparent);
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.product-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
-  box-shadow: var(--shadow-glow);
-}
-
 .product-card:hover::before { opacity: 1; }
 
-.product-card .p-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, rgba(177,18,38,0.1), rgba(177,18,38,0.05));
+.product-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(177,18,38,0.35);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px rgba(177,18,38,0.08);
+}
+
+.product-card.featured {
+  border-color: rgba(177,18,38,0.3);
+  background: linear-gradient(135deg, #1f1a1d 0%, #261e23 100%);
+}
+
+.product-card.featured::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  box-shadow: inset 0 0 30px rgba(177,18,38,0.05);
+  pointer-events: none;
+}
+
+.product-icon-wrap {
+  width: 48px; height: 48px;
+  min-width: 48px;
+  background: linear-gradient(135deg, rgba(177,18,38,0.15), rgba(177,18,38,0.08));
+  border: 1px solid rgba(177,18,38,0.2);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid rgba(177,18,38,0.1);
+  color: var(--rose);
 }
 
-.product-card .p-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--primary-light);
-  fill: none;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.product-info { flex: 1; min-width: 0; }
+
+.product-badges {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
 }
 
-.product-card .p-info {
-  flex: 1;
-  min-width: 0;
+.badge-popular, .badge-limited, .badge-legendary {
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.product-card .p-name {
-  font-size: 13px;
+.badge-popular {
+  background: linear-gradient(135deg, rgba(177,18,38,0.3), rgba(212,24,58,0.3));
+  color: var(--rose);
+  border: 1px solid rgba(177,18,38,0.4);
+}
+
+.badge-limited {
+  background: linear-gradient(135deg, rgba(201,168,76,0.2), rgba(228,199,107,0.2));
+  color: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.35);
+}
+
+.badge-legendary {
+  background: linear-gradient(135deg, rgba(201,168,76,0.25), rgba(139,0,0,0.25));
+  color: var(--gold-light);
+  border: 1px solid rgba(201,168,76,0.4);
+  box-shadow: 0 0 8px rgba(201,168,76,0.15);
+}
+
+.product-name {
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-primary);
+  margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: -0.2px;
 }
 
-.product-card .p-desc {
-  font-size: 11px;
+.product-desc {
+  font-size: 0.72rem;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-bottom: 10px;
+  line-height: 1.4;
 }
 
-.product-card .p-price {
-  font-size: 15px;
+.product-price {
+  font-size: 1.05rem;
   font-weight: 800;
   color: var(--primary-light);
-  white-space: nowrap;
-  letter-spacing: -0.3px;
+  margin-bottom: 10px;
 }
 
-.product-card .p-price small {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--text-muted);
-}
+.price-unit { font-size: 0.65rem; font-weight: 500; color: var(--text-muted); margin-left: 2px; }
 
-.product-card .p-actions {
+.qty-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.qty-control {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  background: var(--bg-1);
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .qty-btn {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 16px;
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: rgba(177,18,38,0.12);
+  border: 1px solid rgba(177,18,38,0.25);
+  color: var(--rose);
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  user-select: none;
+  flex-shrink: 0;
 }
 
-.qty-btn:hover { background: rgba(177,18,38,0.1); color: var(--primary-light); }
+.qty-btn:hover { background: rgba(177,18,38,0.25); border-color: var(--primary); }
 .qty-btn:active { transform: scale(0.92); }
 .qty-btn.disabled { opacity: 0.3; cursor: not-allowed; }
 
 .qty-num {
-  width: 32px;
-  text-align: center;
-  font-size: 13px;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: var(--text-primary);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s;
+  min-width: 28px;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.qty-total {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.qty-total span {
+  font-weight: 700;
+  color: var(--gold);
 }
 
 .btn-buy {
-  height: 30px;
-  padding: 0 14px;
-  border: none;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+  width: 100%;
+  padding: 9px;
+  background: linear-gradient(135deg, var(--primary-deep), var(--primary));
   color: white;
-  font-size: 11px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.25s var(--transition);
+  transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-family: inherit;
+  letter-spacing: 0.3px;
 }
 
 .btn-buy::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
+  top: 0; left: -100%;
+  width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  transition: left 0.4s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  transition: left 0.4s ease;
 }
 
-.btn-buy:hover { box-shadow: 0 4px 15px rgba(177,18,38,0.3); transform: translateY(-1px); }
-.btn-buy:hover::before { left: 100%; }
-.btn-buy:active { transform: scale(0.96); }
+.btn-buy:hover::before { left: 150%; }
+.btn-buy:hover { box-shadow: 0 4px 16px rgba(177,18,38,0.4); transform: translateY(-1px); }
+.btn-buy:active { transform: scale(0.97); box-shadow: inset 0 2px 6px rgba(0,0,0,0.3); }
 
-/* BADGE */
-.badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 3px 10px;
-  border-radius: 10px;
-  font-size: 9px;
+/* ============ VIEWS / PAGES ============ */
+.view { display: none; }
+.view.active { display: block; }
+
+/* ============ SEARCH RESULTS ============ */
+.search-results-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.search-results-title {
+  font-size: 1.2rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  margin-bottom: 8px;
 }
 
-.badge-popular {
-  background: linear-gradient(135deg, rgba(177,18,38,0.2), rgba(177,18,38,0.1));
-  color: var(--primary-light);
-  border: 1px solid rgba(177,18,38,0.2);
+.search-highlight {
+  color: var(--rose);
 }
 
-.badge-limited {
-  background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.08));
-  color: var(--gold);
-  border: 1px solid rgba(201,168,76,0.2);
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
 }
 
-/* KIT CARDS */
+.no-results svg { margin: 0 auto 16px; opacity: 0.3; display: block; }
+
+/* ============ KIT TOPUP ============ */
 .kit-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 .kit-card {
-  background: var(--bg-card);
+  background: linear-gradient(135deg, #1a1518 0%, #1f1c22 100%);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  position: relative;
+  border-radius: 20px;
   overflow: hidden;
-  transition: all 0.35s var(--transition);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
   opacity: 0;
-  transform: translateY(25px);
+  transform: translateY(30px);
 }
 
 .kit-card.revealed { opacity: 1; transform: translateY(0); }
 
+.kit-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(177,18,38,0.35);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 20px rgba(177,18,38,0.1);
+}
+
 .kit-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(177,18,38,0.5), transparent);
 }
 
-.kit-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-glow), var(--shadow-md);
-}
-
-.kit-card:hover::before { opacity: 1; }
-
-.kit-card .kit-header {
+.kit-card-header {
+  padding: 20px 20px 16px;
+  background: linear-gradient(135deg, rgba(177,18,38,0.08), rgba(177,18,38,0.03));
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  gap: 14px;
 }
 
-.kit-card .kit-name {
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.3px;
+.kit-icon {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--primary-deep), var(--primary));
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 16px rgba(177,18,38,0.35);
 }
 
-.kit-card .kit-price {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--primary-light);
-  letter-spacing: -0.5px;
-}
-
-.kit-card .kit-price small {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.kit-items {
-  list-style: none;
-  margin-bottom: 20px;
-}
-
-.kit-items li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 6px 0;
-  font-size: 13px;
-  color: var(--text-secondary);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-
-.kit-items li:last-child { border-bottom: none; }
-
-.kit-items li svg {
-  width: 16px;
-  height: 16px;
-  stroke: var(--primary-light);
-  fill: none;
-  stroke-width: 2;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.kit-buy-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-}
-
-.kit-buy-btn {
-  padding: 10px 28px;
-  border: none;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.kit-buy-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-  transition: left 0.5s;
-}
-
-.kit-buy-btn:hover { box-shadow: var(--shadow-glow); transform: translateY(-2px); }
-.kit-buy-btn:hover::before { left: 100%; }
-.kit-buy-btn:active { transform: scale(0.97); }
-
-/* 3D BOX CSS */
-.kit-visual {
-  width: 80px;
-  height: 80px;
-  perspective: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.box-3d {
-  width: 50px;
-  height: 50px;
-  position: relative;
-  transform-style: preserve-3d;
-  transform: rotateX(-15deg) rotateY(25deg);
-  animation: box-float 4s ease-in-out infinite;
-}
-
-@keyframes box-float {
-  0%, 100% { transform: rotateX(-15deg) rotateY(25deg) translateY(0); }
-  50% { transform: rotateX(-15deg) rotateY(25deg) translateY(-6px); }
-}
-
-.box-face {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border: 1px solid rgba(177,18,38,0.3);
-}
-
-.box-front { background: rgba(177,18,38,0.12); transform: translateZ(25px); }
-.box-top { background: rgba(177,18,38,0.08); transform: rotateX(90deg) translateZ(25px); }
-.box-right { background: rgba(177,18,38,0.15); transform: rotateY(90deg) translateZ(25px); }
-
-/* ADMIN SERVICES */
-.admin-grid {
-  display: grid;
-  gap: 12px;
-}
-
-.admin-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: all 0.3s var(--transition);
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.admin-card.revealed { opacity: 1; transform: translateY(0); }
-
-.admin-card:hover {
-  border-color: var(--border-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(177,18,38,0.08);
-}
-
-.admin-card .a-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(177,18,38,0.12), rgba(177,18,38,0.05));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.admin-card .a-icon svg {
-  width: 22px;
-  height: 22px;
-  stroke: var(--primary-light);
-  fill: none;
-  stroke-width: 1.8;
-}
-
-.admin-card .a-info { flex: 1; }
-.admin-card .a-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-.admin-card .a-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-
-.admin-card .a-right {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.admin-card .a-price {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--primary-light);
-}
-
-/* BOOST CARDS */
-.boost-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-}
-
-.boost-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  text-align: center;
-  transition: all 0.3s var(--transition);
-  position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.boost-card.revealed { opacity: 1; transform: translateY(0); }
-
-.boost-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  background: linear-gradient(135deg, rgba(177,18,38,0.2), transparent, rgba(201,168,76,0.1)) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.boost-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-glow); }
-.boost-card:hover::after { opacity: 1; }
-
-.boost-multiplier {
-  font-size: 36px;
+.kit-name { font-size: 1.05rem; font-weight: 800; }
+.kit-price {
+  font-size: 1.4rem;
   font-weight: 800;
   background: linear-gradient(135deg, var(--primary-light), var(--gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 4px;
+  background-clip: text;
 }
 
-.boost-duration {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
+.kit-card-body { padding: 16px 20px 20px; }
 
-.boost-price {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--text-primary);
+.kit-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   margin-bottom: 16px;
 }
 
-.boost-buy {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-hover);
-  border-radius: var(--radius-sm);
-  background: rgba(177,18,38,0.08);
-  color: var(--primary-light);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.kit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
 }
 
-.boost-buy:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+.kit-item-dot {
+  width: 5px; height: 5px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
 }
 
-/* MASK KIT SECTION */
-.mask-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-}
-
-.mask-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  transition: all 0.3s var(--transition);
+/* ============ MASK KIT ============ */
+.mask-kit-section {
+  margin-top: 48px;
+  padding: 32px;
+  background: linear-gradient(135deg, #1f1c22 0%, #261e23 100%);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 24px;
   position: relative;
+  overflow: hidden;
+}
+
+.mask-kit-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.mask-kit-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============ JASA ADMIN ============ */
+.admin-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.admin-card {
+  background: linear-gradient(135deg, #1a1518 0%, #1f1c22 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.25s ease;
   opacity: 0;
   transform: translateY(20px);
+  position: relative;
+  overflow: hidden;
 }
 
-.mask-card.revealed { opacity: 1; transform: translateY(0); }
-.mask-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+.admin-card.revealed { opacity: 1; transform: translateY(0); }
 
-/* CART PAGE */
-.cart-page { display: none; }
-.cart-page.active { display: block; }
+.admin-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(177,18,38,0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
+.admin-card:hover::before { opacity: 1; }
+.admin-card:hover {
+  border-color: rgba(177,18,38,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.admin-icon {
+  width: 46px; height: 46px;
+  min-width: 46px;
+  background: linear-gradient(135deg, rgba(177,18,38,0.15), rgba(177,18,38,0.08));
+  border: 1px solid rgba(177,18,38,0.2);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rose);
+}
+
+.admin-info { flex: 1; }
+.admin-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 3px; }
+.admin-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
+.admin-price { font-size: 1.1rem; font-weight: 800; color: var(--primary-light); white-space: nowrap; }
+
+/* ============ BOOST EVENT ============ */
+.boost-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.boost-tab {
+  padding: 9px 22px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.boost-tab.active, .boost-tab:hover {
+  background: rgba(177,18,38,0.15);
+  border-color: rgba(177,18,38,0.4);
+  color: var(--rose);
+}
+
+.boost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.boost-card {
+  background: linear-gradient(135deg, #1f1c22 0%, #261e23 100%);
+  border: 1px solid rgba(177,18,38,0.25);
+  border-radius: 16px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.boost-card.revealed { opacity: 1; transform: translateY(0); }
+
+.boost-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+.boost-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(177,18,38,0.2);
+  border-color: rgba(177,18,38,0.5);
+}
+
+.boost-mult {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.boost-label { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 14px; }
+.boost-price { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.boost-period { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 14px; }
+
+/* ============ CART ============ */
 .cart-layout {
   display: grid;
   grid-template-columns: 1fr 340px;
@@ -1165,1784 +1138,1798 @@ main {
   align-items: start;
 }
 
-.cart-items-list { display: grid; gap: 8px; }
+@media (max-width: 900px) { .cart-layout { grid-template-columns: 1fr; } }
 
-.cart-item {
-  background: var(--bg-card);
+.cart-items-section {
+  background: linear-gradient(135deg, #1a1518, #1f1c22);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  transition: all 0.35s var(--transition);
-}
-
-.cart-item.removing {
-  opacity: 0;
-  transform: translateX(-40px);
-  max-height: 0;
-  padding: 0 20px;
-  margin: 0;
+  border-radius: 20px;
   overflow: hidden;
 }
 
-.cart-item .ci-info { flex: 1; }
-.cart-item .ci-name { font-size: 14px; font-weight: 700; }
-.cart-item .ci-unit { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-.cart-item .ci-subtotal {
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--primary-light);
-  white-space: nowrap;
-  min-width: 90px;
-  text-align: right;
+.cart-items-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.remove-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: transparent;
+.cart-item {
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: all 0.3s ease;
+}
+
+.cart-item:last-child { border-bottom: none; }
+.cart-item:hover { background: rgba(255,255,255,0.01); }
+
+.cart-item-icon {
+  width: 40px; height: 40px;
+  min-width: 40px;
+  background: rgba(177,18,38,0.12);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rose);
+}
+
+.cart-item-name { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+.cart-item-price { font-size: 0.75rem; color: var(--text-muted); }
+.cart-item-subtotal { font-size: 0.9rem; font-weight: 700; color: var(--primary-light); margin-left: auto; white-space: nowrap; }
+
+.cart-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cart-qty-btn {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: rgba(177,18,38,0.12);
+  border: 1px solid rgba(177,18,38,0.2);
+  color: var(--rose);
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.cart-qty-btn:hover { background: rgba(177,18,38,0.25); }
+.cart-qty-btn:active { transform: scale(0.9); }
+
+.cart-qty-num { font-size: 0.8rem; font-weight: 700; min-width: 20px; text-align: center; }
+
+.cart-remove-btn {
+  background: none;
+  border: none;
   color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
   transition: all 0.2s;
+  display: flex; align-items: center;
 }
 
-.remove-btn:hover {
-  background: rgba(177,18,38,0.1);
-  border-color: var(--border-hover);
-  color: var(--primary-light);
-}
+.cart-remove-btn:hover { color: var(--rose); background: rgba(177,18,38,0.1); }
 
-.remove-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-/* CART SUMMARY */
 .cart-summary {
-  background: var(--bg-card);
+  background: linear-gradient(135deg, #1a1518, #1f1c22);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+  border-radius: 20px;
+  padding: 22px;
   position: sticky;
-  top: 88px;
+  top: 80px;
 }
 
-.cart-summary h3 {
-  font-size: 16px;
-  font-weight: 800;
-  margin-bottom: 20px;
-  letter-spacing: -0.3px;
-}
+.cart-summary h3 { font-size: 1rem; font-weight: 700; margin-bottom: 18px; }
 
-.summary-row {
+.cart-summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  font-size: 13px;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
 }
 
-.summary-total {
+.cart-summary-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 14px 0;
+}
+
+.cart-total-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0 0;
-  margin-top: 8px;
+  margin-bottom: 20px;
 }
 
-.summary-total .label {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.summary-total .amount {
-  font-size: 24px;
+.cart-total-label { font-size: 0.95rem; font-weight: 600; }
+.cart-total-amount {
+  font-size: 1.5rem;
   font-weight: 800;
-  color: var(--primary-light);
-  letter-spacing: -0.5px;
-  transition: all 0.3s;
+  background: linear-gradient(135deg, var(--primary-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .btn-checkout {
   width: 100%;
   padding: 14px;
-  border: none;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+  background: linear-gradient(135deg, var(--primary-deep), var(--primary), var(--primary-light));
   color: white;
-  font-size: 14px;
-  font-weight: 800;
+  border: none;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: 20px;
-  transition: all 0.25s var(--transition);
+  transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-family: inherit;
+  letter-spacing: 0.3px;
 }
 
 .btn-checkout::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
+  top: 0; left: -100%;
+  width: 60%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
 }
 
-.btn-checkout:hover { box-shadow: 0 8px 30px rgba(177,18,38,0.3); transform: translateY(-2px); }
-.btn-checkout:hover::before { left: 100%; }
-.btn-checkout:active { transform: scale(0.98); }
+.btn-checkout:hover::before { left: 150%; }
+.btn-checkout:hover { box-shadow: 0 6px 24px rgba(177,18,38,0.5); transform: translateY(-2px); }
+.btn-checkout:active { transform: scale(0.97); }
 
-/* MODAL */
+.cart-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+}
+
+.cart-empty svg { margin: 0 auto 16px; opacity: 0.2; display: block; }
+.cart-empty p { font-size: 0.9rem; }
+
+/* ============ MODAL ============ */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.7);
-  z-index: 5000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s var(--transition);
+  background: rgba(0,0,0,0.8);
   backdrop-filter: blur(8px);
-  padding: 24px;
-}
-
-.modal-overlay.open { opacity: 1; visibility: visible; }
-
-.modal {
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 32px;
-  max-width: 440px;
-  width: 100%;
-  transform: scale(0.92) translateY(20px);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-overlay.open .modal { transform: scale(1) translateY(0); }
-
-.modal h3 {
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 4px;
-  letter-spacing: -0.5px;
-}
-
-.modal .modal-sub {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-}
-
-.modal-items {
-  max-height: 200px;
-  overflow-y: auto;
-  margin-bottom: 16px;
-}
-
-.modal-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  font-size: 13px;
-  color: var(--text-secondary);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-
-.modal-total {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 0;
-  border-top: 1px solid var(--border);
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.modal-total .amount { color: var(--primary-light); }
-
-.btn-wa {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, #25D366, #128C7E);
-  color: white;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 12px;
+  z-index: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  transition: all 0.25s;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.btn-wa:hover { box-shadow: 0 8px 25px rgba(37,211,102,0.25); transform: translateY(-2px); }
-.btn-wa:active { transform: scale(0.97); }
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
 
-.btn-wa svg { width: 20px; height: 20px; fill: white; }
+.modal-box {
+  background: linear-gradient(135deg, #1f1c22, #261e23);
+  border: 1px solid rgba(177,18,38,0.3);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 480px;
+  transform: scale(0.9) translateY(20px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), var(--gold), transparent);
+}
+
+.modal-overlay.active .modal-box {
+  transform: scale(1) translateY(0);
+}
+
+.modal-header {
+  padding: 24px 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-title { font-size: 1.1rem; font-weight: 700; }
 
 .modal-close {
-  width: 100%;
-  padding: 12px;
+  width: 30px; height: 30px;
+  background: rgba(255,255,255,0.05);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 600;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  margin-top: 8px;
+  color: var(--text-secondary);
   transition: all 0.2s;
 }
 
-.modal-close:hover { background: rgba(255,255,255,0.03); }
+.modal-close:hover { background: rgba(177,18,38,0.15); color: var(--rose); }
 
-/* HOME SECTION */
-.page { display: none; }
-.page.active { display: block; }
+.modal-body { padding: 20px 24px; }
 
-/* FEATURES */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-top: 48px;
+.modal-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.85rem;
 }
 
-.feature-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px 24px;
-  text-align: center;
-  transition: all 0.3s var(--transition);
-  opacity: 0;
-  transform: translateY(25px);
+.modal-item-row:last-child { border-bottom: none; }
+.modal-item-name { color: var(--text-secondary); flex: 1; padding-right: 10px; }
+.modal-item-amount { font-weight: 700; color: var(--primary-light); white-space: nowrap; }
+
+.modal-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
 }
 
-.feature-card.revealed { opacity: 1; transform: translateY(0); }
+.modal-total-label { font-size: 1rem; font-weight: 700; }
+.modal-total-amount {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-.feature-card:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: 0 0 25px rgba(177,18,38,0.08); }
+.modal-payment-info {
+  margin-top: 16px;
+  padding: 14px;
+  background: rgba(177,18,38,0.07);
+  border: 1px solid rgba(177,18,38,0.15);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
 
-.feature-card .f-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(177,18,38,0.12), rgba(177,18,38,0.04));
+.modal-payment-info strong { color: var(--text-primary); }
+
+.modal-footer { padding: 16px 24px 24px; }
+
+.btn-whatsapp {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 16px;
+  gap: 8px;
 }
 
-.feature-card .f-icon svg {
-  width: 24px;
-  height: 24px;
-  stroke: var(--primary-light);
-  fill: none;
-  stroke-width: 1.8;
+.btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
+
+/* ============ TOP DONATUR ============ */
+.donatur-section {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(139,0,0,0.08));
+  border-top: 1px solid rgba(201,168,76,0.1);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
 }
 
-.feature-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-.feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-
-/* TOP DONATUR */
-.donatur-section { margin-top: 48px; }
-
-.donatur-list {
+.donatur-inner {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 20px;
   flex-wrap: wrap;
 }
 
-.donatur-badge {
-  display: inline-flex;
+.donatur-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 18px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  transition: all 0.3s;
-  opacity: 0;
-  transform: translateY(15px);
+  gap: 6px;
 }
 
-.donatur-badge.revealed { opacity: 1; transform: translateY(0); }
+.donatur-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
+}
 
-.donatur-badge:hover {
-  border-color: rgba(201,168,76,0.3);
-  box-shadow: 0 0 20px rgba(201,168,76,0.08);
+.donatur-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.06));
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 20px;
+  padding: 4px 12px 4px 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  box-shadow: 0 0 10px rgba(201,168,76,0.08);
 }
 
 .donatur-avatar {
-  width: 32px;
-  height: 32px;
+  width: 22px; height: 22px;
+  background: linear-gradient(135deg, var(--primary), var(--gold));
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--wine));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem;
   font-weight: 800;
   color: white;
 }
 
-.donatur-name { font-size: 13px; font-weight: 700; }
-.donatur-rank {
-  font-size: 10px;
-  padding: 2px 8px;
-  border-radius: 8px;
-  background: var(--gold-soft);
-  color: var(--gold);
-  font-weight: 700;
+/* ============ ANIMATIONS ============ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* TOAST */
-.toast-container {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9000;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.toast {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  box-shadow: var(--shadow-lg);
-  transform: translateX(120%);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  max-width: 320px;
+@keyframes slideOut {
+  to { opacity: 0; transform: translateX(40px) scale(0.95); max-height: 0; padding: 0; margin: 0; overflow: hidden; }
 }
 
-.toast.show { transform: translateX(0); }
+.removing { animation: slideOut 0.3s ease forwards; }
 
-.toast svg { width: 18px; height: 18px; stroke: var(--primary-light); fill: none; stroke-width: 2; flex-shrink: 0; }
-
-/* BACK TO TOP */
-.back-top {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 900;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s var(--transition);
-  color: var(--text-secondary);
+/* ============ DIVIDERS ============ */
+.gradient-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(177,18,38,0.2), rgba(201,168,76,0.15), rgba(177,18,38,0.2), transparent);
+  margin: 0;
 }
 
-.back-top.show { opacity: 1; transform: translateY(0); }
-.back-top:hover { border-color: var(--border-hover); color: var(--primary-light); background: var(--bg-card-hover); }
-.back-top svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
-
-/* FOOTER */
-footer {
-  padding: 40px 24px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-  position: relative;
-  z-index: 1;
-}
-
-footer p { font-size: 12px; color: var(--text-muted); }
-footer .footer-brand { font-weight: 700; color: var(--text-secondary); }
-
-/* EMPTY CART */
-.empty-cart {
-  text-align: center;
-  padding: 60px 20px;
-}
-
-.empty-cart svg { width: 64px; height: 64px; stroke: var(--text-muted); fill: none; stroke-width: 1.2; margin-bottom: 16px; }
-.empty-cart h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.empty-cart p { font-size: 13px; color: var(--text-muted); }
-
-.btn-shop {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  padding: 10px 24px;
-  border: 1px solid var(--border-hover);
-  border-radius: var(--radius-sm);
-  background: rgba(177,18,38,0.08);
-  color: var(--primary-light);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-
-.btn-shop:hover { background: var(--primary); color: white; border-color: var(--primary); }
-
-/* RESPONSIVE */
+/* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
-  .hero { padding: 60px 20px 40px; }
-  .hero h1 { font-size: 28px; }
-  .hero-stats { gap: 24px; }
-  .hero-stat .num { font-size: 22px; }
-  .products-grid { grid-template-columns: 1fr; }
+  .search-input { width: 140px; }
+  .search-input:focus { width: 160px; }
+  .hero-stats { gap: 20px; }
+  .hero-stat-num { font-size: 1.4rem; }
+  .hero-3d-scene { width: 280px; height: 170px; }
+  .product-grid { grid-template-columns: 1fr; }
   .kit-grid { grid-template-columns: 1fr; }
-  .cart-layout { grid-template-columns: 1fr; }
-  .cart-summary { position: static; }
-  .search-container { display: none; }
-  .side-menu { width: 280px; }
-  .product-card { flex-wrap: wrap; }
-  .product-card .p-actions { width: 100%; justify-content: flex-end; padding-top: 8px; border-top: 1px solid var(--border); }
   .boost-grid { grid-template-columns: repeat(2, 1fr); }
-  .features-grid { grid-template-columns: 1fr 1fr; }
-  .mask-grid { grid-template-columns: 1fr; }
-  .section { padding: 32px 16px 48px; }
-  header { padding: 0 16px; }
-  .toast-container { right: 16px; left: 16px; }
-  .toast { max-width: 100%; }
+  .cart-layout { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .boost-grid { grid-template-columns: 1fr; }
-  .features-grid { grid-template-columns: 1fr; }
-  .hero-stats { flex-direction: column; gap: 16px; }
+  .search-container { display: none; }
+  .boost-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* LOADING SKELETON */
-.skeleton {
-  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
-  border-radius: var(--radius-sm);
+/* ============ LOADING SHIMMER ============ */
+.shimmer-card {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 400% 100%;
+  animation: shimmerLoad 1.5s ease infinite;
+  border-radius: 16px;
+  height: 140px;
 }
 
-@keyframes skeleton-loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+@keyframes shimmerLoad {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
 }
 
-/* NOTICE BAR */
-.notice-bar {
-  background: linear-gradient(90deg, var(--primary-deep), var(--primary), var(--primary-deep));
-  padding: 8px 24px;
-  text-align: center;
-  font-size: 12px;
+/* ============ MISC ============ */
+.version-tag {
+  display: inline-block;
+  font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.9);
-  letter-spacing: 0.3px;
-}
-
-.info-note {
-  margin-top: 16px;
-  padding: 14px 18px;
-  background: rgba(201,168,76,0.06);
-  border: 1px solid rgba(201,168,76,0.12);
-  border-radius: var(--radius-md);
-  font-size: 12px;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.2);
   color: var(--gold);
-  line-height: 1.6;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  padding: 2px 8px;
+  border-radius: 8px;
+  margin-left: 6px;
 }
 
-.info-note svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 1px; }
+.text-gradient-red {
+  background: linear-gradient(135deg, var(--primary-light), var(--rose));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-/* Keyboard shortcut hints */
-.kbd {
-  display: inline-flex;
-  padding: 2px 6px;
-  background: var(--bg-1);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 600;
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating particles */
+.particle {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 0;
+  animation: particleFly linear infinite;
+}
+
+@keyframes particleFly {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.1; }
+  100% { transform: translateY(-100px) scale(1); opacity: 0; }
+}
+
+/* 3D perspective hover for cards */
+.perspective-card {
+  transition: transform 0.1s ease;
+  transform-style: preserve-3d;
+}
+
+/* Pulse animation for badge */
+.pulse-glow {
+  animation: pulseGlow 2s ease infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(201,168,76,0.15); }
+  50% { box-shadow: 0 0 16px rgba(201,168,76,0.35); }
+}
+
+/* Note card */
+.note-card {
+  background: rgba(177,18,38,0.06);
+  border: 1px solid rgba(177,18,38,0.15);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  font-family: monospace;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.note-card strong { color: var(--text-secondary); }
+
+/* Active view indicator */
+.view-indicator {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 99;
 }
 </style>
 </head>
 <body>
 
-<div id="scrollProgress"></div>
-<div class="bg-glow-bl"></div>
+<!-- Ambient Background -->
+<div class="ambient-blob blob-1"></div>
+<div class="ambient-blob blob-2"></div>
+<div class="ambient-blob blob-3"></div>
 
-<!-- HEADER -->
-<header id="header">
-  <div style="display:flex;align-items:center;gap:12px;">
-    <button class="btn-icon" id="menuBtn" aria-label="Menu">
-      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <div class="logo" onclick="navigate('home')">
-      <div class="logo-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <div>
-        <div class="logo-text">Lunive Universe</div>
-        <div class="logo-sub">Topup Shop</div>
-      </div>
+<!-- Top Bar -->
+<header id="topbar">
+  <div class="topbar-left">
+    <div class="menu-toggle" onclick="toggleSideMenu()" title="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </div>
+    <div>
+      <span class="logo-text">Lunive</span>
+      <span class="logo-badge">Universe</span>
     </div>
   </div>
-
-  <div class="search-container">
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" id="searchInput" placeholder="Cari produk... (Ctrl+K)" autocomplete="off">
-  </div>
-
-  <div class="header-actions">
-    <button class="btn-icon" id="cartBtn" aria-label="Keranjang" onclick="navigate('cart')">
-      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+  <div class="topbar-right">
+    <div class="search-container">
+      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" class="search-input" placeholder="Cari produk..." id="searchInput" oninput="handleSearch(this.value)" onkeydown="if(event.key==='Enter')handleSearch(this.value)">
+    </div>
+    <div class="cart-btn" onclick="navigateTo('cart')" title="Keranjang">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
       <span class="cart-badge" id="cartBadge">0</span>
-    </button>
+    </div>
   </div>
 </header>
 
-<!-- SIDE MENU -->
-<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+<!-- Side Menu Overlay -->
+<div class="side-overlay" id="sideOverlay" onclick="closeSideMenu()"></div>
+
+<!-- Side Menu -->
 <nav class="side-menu" id="sideMenu">
-  <div class="menu-header">
-    <h3>Menu</h3>
-    <button class="menu-close" onclick="toggleMenu()">
-      <svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+  <div class="side-menu-header">
+    <span class="side-logo">Topup Lunive</span>
+    <div class="side-close" onclick="closeSideMenu()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </div>
   </div>
-  <div class="menu-nav">
-    <div class="menu-item active" onclick="navigate('home')" data-page="home">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>Beranda</span>
+  <div class="side-nav">
+    <div class="side-nav-section">Navigasi</div>
+    <div class="side-nav-item active" onclick="navigateTo('home'); closeSideMenu();" data-view="home">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="side-nav-label">Beranda</span>
     </div>
-    <div class="menu-divider"></div>
-    <div class="menu-item" onclick="navigate('topup')" data-page="topup">
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      <span>List Topup</span>
+    <div class="side-nav-divider"></div>
+    <div class="side-nav-section">Toko</div>
+    <div class="side-nav-item" onclick="navigateTo('topup'); closeSideMenu();" data-view="topup">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <span class="side-nav-label">List Topup</span>
     </div>
-    <div class="menu-item" onclick="navigate('kit')" data-page="kit">
-      <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-      <span>Kit Topup</span>
+    <div class="side-nav-item" onclick="navigateTo('kit'); closeSideMenu();" data-view="kit">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      <span class="side-nav-label">Kit Topup</span>
     </div>
-    <div class="menu-item" onclick="navigate('admin')" data-page="admin">
-      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>Jasa Admin</span>
+    <div class="side-nav-item" onclick="navigateTo('admin'); closeSideMenu();" data-view="admin">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span class="side-nav-label">Jasa Admin</span>
     </div>
-    <div class="menu-item" onclick="navigate('boost')" data-page="boost">
-      <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span>Buy Boost & Skills</span>
+    <div class="side-nav-item" onclick="navigateTo('boost'); closeSideMenu();" data-view="boost">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      <span class="side-nav-label">Buy Boost Event</span>
     </div>
-    <div class="menu-divider"></div>
-    <div class="menu-item" onclick="navigate('cart')" data-page="cart">
-      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <span>Keranjang</span>
+    <div class="side-nav-divider"></div>
+    <div class="side-nav-item" onclick="navigateTo('cart'); closeSideMenu();" data-view="cart">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="side-nav-label">Keranjang</span>
     </div>
+  </div>
+  <div class="side-footer">
+    Topup Lunive Universe v1.20<br>
+    <span style="color: var(--primary-light); font-size: 0.7rem;">Operasional 24/7</span>
   </div>
 </nav>
 
-<!-- MAIN CONTENT -->
-<main id="mainContent">
+<!-- App -->
+<div id="app">
 
-  <!-- HOME PAGE -->
-  <div class="page active" id="page-home">
-    <section class="hero">
-      <div class="particles" id="particles"></div>
-      <div class="hero-badge"><span class="dot"></span> Shop Topup Lunive Universe</div>
-      <h1>Premium <span class="gradient-text">Topup Shop</span><br>Lunive Universe</h1>
-      <p>Topup item, kit, jasa admin, dan boost skill dengan harga terbaik. Transaksi cepat, aman, dan gokill.</p>
+  <!-- HOME VIEW -->
+  <div class="view active" id="view-home">
+    <section id="hero">
+      <div class="hero-bg-ring"></div>
+      <div class="hero-bg-ring"></div>
+      <div class="hero-bg-ring"></div>
+      <div class="hero-tag">
+        <span class="hero-tag-dot"></span>
+        Gak topup Gak keren
+      </div>
+      <h1 class="hero-title">
+        Premium Topup<br>
+        <span>Lunive Universe</span>
+      </h1>
+      <p class="hero-sub">Toko topup official Lunive, untuk kebutuhan survival mu, kit yang menawarkan barang bagus, dan jasa² admin.</p>
+
+      <div class="hero-3d-scene">
+        <div class="hero-3d-card">
+          <div class="card-3d-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="card-3d-info">
+            <div class="card-3d-title">Netherite Set</div>
+            <div class="card-3d-sub">Full armor + tools, legendary tier</div>
+            <div class="card-3d-price">Rp 200.000/item</div>
+          </div>
+          <div class="card-3d-badge">Legendary</div>
+        </div>
+      </div>
+
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="num"><span>200+</span></div>
-          <div class="label">Produk</div>
+          <span class="hero-stat-num">500+</span>
+          <span class="hero-stat-label">Item Tersedia</span>
         </div>
         <div class="hero-stat">
-          <div class="num"><span>Fast</span></div>
-          <div class="label">Delivery</div>
+          <span class="hero-stat-num">24/7</span>
+          <span class="hero-stat-label">Layanan Aktif</span>
         </div>
         <div class="hero-stat">
-          <div class="num"><span>24/7</span></div>
-          <div class="label">Support</div>
+          <span class="hero-stat-num">100%</span>
+          <span class="hero-stat-label">Terpercaya</span>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="features-grid" id="featuresGrid">
-        <div class="feature-card reveal-item">
-          <div class="f-icon">
-            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          </div>
-          <h4>200+ Item Topup</h4>
-          <p>Koleksi lengkap item building, tools, armor, potion, dan lainnya.</p>
+    <!-- Top Donatur -->
+    <div class="donatur-section">
+      <div class="donatur-inner">
+        <div class="donatur-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Top Donatur
         </div>
-        <div class="feature-card reveal-item">
-          <div class="f-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          </div>
-          <h4>Kit Spesial</h4>
-          <p>Paket kit lengkap dari pemula hingga pro dengan harga hemat.</p>
-        </div>
-        <div class="feature-card reveal-item">
-          <div class="f-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h4>Jasa Admin</h4>
-          <p>Layanan unban, teleport, dan garansi referral terpercaya.</p>
-        </div>
-        <div class="feature-card reveal-item">
-          <div class="f-icon">
-            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <h4>Boost Skills</h4>
-          <p>Tingkatkan skill multiplier hingga x8 untuk player atau clan.</p>
+        <div class="donatur-list">
+          <div class="donatur-badge pulse-glow"><div class="donatur-avatar">S</div> Skaylucky</div>
+          <div class="donatur-badge"><div class="donatur-avatar">R</div> Cornet</div>
+          <div class="donatur-badge"><div class="donatur-avatar">A</div> Gregory</div>
+          <div class="donatur-badge"><div class="donatur-avatar">D</div> Steven</div>
+          <div class="donatur-badge"><div class="donatur-avatar">D</div> Caesar</div>
         </div>
       </div>
+    </div>
 
-      <div class="donatur-section" style="margin-top:56px;">
-        <div class="section-header">
-          <h2 class="section-title">Top Donatur</h2>
-          <p class="section-subtitle">Member yang telah berkontribusi untuk server</p>
+    <div class="gradient-divider"></div>
+
+    <!-- Quick Access -->
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag"><div class="section-tag-line"></div>Akses Cepat<div class="section-tag-line"></div></div>
+        <h2 class="section-title">Jelajahi Toko</h2>
+        <p class="section-sub">Lengkapi perlengkapan survivalmu, terbaik dengan harga terjangkau</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px;">
+        <div class="product-card" style="flex-direction: column; cursor:pointer;" onclick="navigateTo('topup')">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="product-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div>
+              <div class="product-name">List Topup</div>
+              <div class="product-desc">500+ item tersedia</div>
+            </div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">Building, tools, armor, potions, dan banyak lagi</div>
         </div>
-        <div class="donatur-list" id="donaturList">
-          <div class="donatur-badge reveal-item">
-            <div class="donatur-avatar">S</div>
-            <div class="donatur-name">Skaylucky</div>
-            <span class="donatur-rank">Top 1</span>
+        <div class="product-card" style="flex-direction: column; cursor:pointer;" onclick="navigateTo('kit')">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="product-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <div>
+              <div class="product-name">Kit Topup</div>
+              <div class="product-desc">5 paket kit lengkap</div>
+            </div>
           </div>
-          <div class="donatur-badge reveal-item">
-            <div class="donatur-avatar">G</div>
-            <div class="donatur-name">Gregory</div>
-            <span class="donatur-rank">Top 2</span>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">Rubble, Drifter, Aureate, Regalia, Empyreal</div>
+        </div>
+        <div class="product-card" style="flex-direction: column; cursor:pointer;" onclick="navigateTo('admin')">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="product-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="product-name">Jasa Admin</div>
+              <div class="product-desc">Unban, teleport & lebih</div>
+            </div>
           </div>
-          <div class="donatur-badge reveal-item">
-            <div class="donatur-avatar">S</div>
-            <div class="donatur-name">Steven</div>
-            <span class="donatur-rank">Top 3</span>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">Solusi cepat untuk masalah game kamu</div>
+        </div>
+        <div class="product-card" style="flex-direction: column; cursor:pointer;" onclick="navigateTo('boost')">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="product-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div>
+              <div class="product-name">Boost Event</div>
+              <div class="product-desc">XP boost x2 – x8</div>
+            </div>
           </div>
-          <div class="donatur-badge reveal-item">
-            <div class="donatur-avatar">C</div>
-            <div class="donatur-name">Cornet</div>
-            <span class="donatur-rank">Top 4</span>
-          </div>
-          <div class="donatur-badge reveal-item">
-            <div class="donatur-avatar">C</div>
-            <div class="donatur-name">Caesar</div>
-            <span class="donatur-rank">Top 5</span>
-          </div>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">Boost per player atau per clan/fraksi</div>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 
-  <!-- TOPUP PAGE -->
-  <div class="page" id="page-topup">
-    <section class="section">
-      <div class="section-header">
-        <h2 class="section-title">List Topup</h2>
-        <p class="section-subtitle">Pilih item yang kamu butuhkan, quantity 1–64</p>
+  <!-- SEARCH VIEW -->
+  <div class="view" id="view-search">
+    <div class="search-results-section">
+      <div id="searchResultsHeader" class="search-results-title"></div>
+      <div id="searchResultsGrid" class="product-grid" style="margin-top:20px;"></div>
+      <div id="searchNoResults" class="no-results" style="display:none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <p>Produk tidak ditemukan.</p>
       </div>
-      <div class="category-tabs" id="topupTabs"></div>
-      <div class="products-grid" id="topupGrid"></div>
-    </section>
+    </div>
   </div>
 
-  <!-- KIT PAGE -->
-  <div class="page" id="page-kit">
-    <section class="section">
+  <!-- TOPUP VIEW -->
+  <div class="view" id="view-topup">
+    <div class="section-container">
       <div class="section-header">
+        <div class="section-tag"><div class="section-tag-line"></div>Shop Topup<div class="section-tag-line"></div></div>
+        <h2 class="section-title">List Topup Lunive Universe</h2>
+        <p class="section-sub">Edisi Lengkap v1.20 — Ribuan item pilihan untuk server kamu</p>
+      </div>
+      <div class="category-filter" id="topupCategoryFilter"></div>
+      <div class="product-grid" id="topupGrid"></div>
+    </div>
+  </div>
+
+  <!-- KIT VIEW -->
+  <div class="view" id="view-kit">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-tag"><div class="section-tag-line"></div>Kit Shop<div class="section-tag-line"></div></div>
         <h2 class="section-title">Kit Topup</h2>
-        <p class="section-subtitle">Paket kit lengkap siap tempur</p>
+        <p class="section-sub">Paket lengkap siap pakai untuk petualangan kamu</p>
       </div>
       <div class="kit-grid" id="kitGrid"></div>
-
-      <div style="margin-top:48px;">
-        <div class="section-header">
-          <h2 class="section-title">Mask Kit</h2>
-          <p class="section-subtitle">Aksesori topeng eksklusif untuk karakter kamu</p>
+      <!-- Mask Kit -->
+      <div class="mask-kit-section" style="margin-top:48px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--gold),var(--primary));border-radius:12px;display:flex;align-items:center;justify-content:center;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div>
+            <div class="mask-kit-title">MASK KIT — Aksesori Topup</div>
+            <div style="font-size:0.78rem;color:var(--text-muted);">Topeng eksklusif dengan enchant khusus</div>
+          </div>
         </div>
-        <div class="mask-grid" id="maskGrid"></div>
-        <div class="info-note" style="margin-top:16px;">
-          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          <span>Topeng memiliki enchant Vanishing sehingga tidak bisa dipindahtangankan. Topeng permanen mendapat free garansi jika mati. Topeng trial garansi via Jasa Admin.</span>
+        <div class="kit-grid" id="maskKitGrid"></div>
+        <div class="note-card" style="margin-top:20px;">
+          <strong>Catatan Penting:</strong> Topeng bukan dibuat untuk abuse. Tiap topeng memiliki enchant <em>Vanishing</em>, sehingga tidak ada rebutan. Topeng Permanent mendapat garansi gratis jika mati apapun. Topeng Trial digaransi via Jasa Admin.
         </div>
       </div>
-    </section>
+    </div>
   </div>
 
-  <!-- ADMIN PAGE -->
-  <div class="page" id="page-admin">
-    <section class="section">
+  <!-- ADMIN VIEW -->
+  <div class="view" id="view-admin">
+    <div class="section-container">
       <div class="section-header">
-        <h2 class="section-title">Jasa Admin</h2>
-        <p class="section-subtitle">Layanan bantuan admin server</p>
+        <div class="section-tag"><div class="section-tag-line"></div>Jasa Admin<div class="section-tag-line"></div></div>
+        <h2 class="section-title">Jasa Etmin</h2>
+        <p class="section-sub">Layanan administrasi server profesional — cepat dan terpercaya</p>
       </div>
       <div class="admin-grid" id="adminGrid"></div>
-      <div class="info-note" style="margin-top:16px;">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        <span>List masih beta, jadi belum selengkap lengkapnya. List ini dibuat bukan untuk abuse/p2w, melainkan meringankan beban member sekaligus beban server.</span>
+      <div class="note-card" style="max-width:700px;margin:20px auto 0;">
+        <strong>Info:</strong> List masih beta, belum selengkap-lengkapnya. Layanan ini dibuat bukan untuk abuse/p2w, melainkan untuk meringankan beban member sekaligus beban server.
       </div>
-    </section>
+    </div>
   </div>
 
-  <!-- BOOST PAGE -->
-  <div class="page" id="page-boost">
-    <section class="section">
+  <!-- BOOST VIEW -->
+  <div class="view" id="view-boost">
+    <div class="section-container">
       <div class="section-header">
-        <h2 class="section-title">Boost Skills</h2>
-        <p class="section-subtitle">Tingkatkan multiplier skill kamu</p>
+        <div class="section-tag"><div class="section-tag-line"></div>Boost Event<div class="section-tag-line"></div></div>
+        <h2 class="section-title">Buy Boost Event</h2>
+        <p class="section-sub">Tingkatkan performa skill kamu dengan boost XP premium</p>
       </div>
-
-      <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--primary-light)" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Per Player
-      </h3>
-      <div class="boost-grid" id="boostPlayerGrid"></div>
-
-      <h3 style="font-size:16px;font-weight:700;margin:32px 0 8px;display:flex;align-items:center;gap:8px;">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--primary-light)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Per 1 Clan / Fraksi
-      </h3>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Harga per boost x8. Contoh: x8 = 150k/2hari, dijumlahkan seluruh member clan.</p>
-      <div class="boost-grid" id="boostClanGrid"></div>
-    </section>
+      <div class="boost-tabs">
+        <div class="boost-tab active" onclick="switchBoostTab(this,'player')">Per Player</div>
+        <div class="boost-tab" onclick="switchBoostTab(this,'clan')">Per Clan/Fraksi</div>
+      </div>
+      <div class="boost-grid" id="boostGrid"></div>
+    </div>
   </div>
 
-  <!-- CART PAGE -->
-  <div class="page" id="page-cart">
-    <section class="section">
+  <!-- CART VIEW -->
+  <div class="view" id="view-cart">
+    <div class="section-container">
       <div class="section-header">
+        <div class="section-tag"><div class="section-tag-line"></div>Checkout<div class="section-tag-line"></div></div>
         <h2 class="section-title">Keranjang</h2>
-        <p class="section-subtitle" id="cartCount">0 item di keranjang</p>
       </div>
       <div id="cartContent"></div>
-    </section>
+    </div>
   </div>
 
-</main>
+</div>
 
-<!-- FOOTER -->
-<footer>
-  <p><span class="footer-brand">Lunive Universe</span> &mdash; Topup Shop &copy; 2025. All rights reserved. By Fahri/Nevano</p>
-</footer>
-
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- BACK TO TOP -->
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-</button>
-
-<!-- MODAL -->
+<!-- Checkout Modal -->
 <div class="modal-overlay" id="checkoutModal">
-  <div class="modal">
-    <h3>Ringkasan Pembayaran</h3>
-    <p class="modal-sub">Periksa pesanan kamu sebelum checkout</p>
-    <div class="modal-items" id="modalItems"></div>
-    <div class="modal-total">
-      <span>Total</span>
-      <span class="amount" id="modalTotal">Rp 0</span>
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Ringkasan Pesanan</div>
+      <div class="modal-close" onclick="closeModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
     </div>
-    <button class="btn-wa" id="btnWhatsapp" onclick="sendToWhatsApp()">
-      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-      Bayar via WhatsApp
-    </button>
-    <button class="modal-close" onclick="closeCheckoutModal()">Batal</button>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
   </div>
 </div>
 
 <script>
-// ==================== DATA ====================
-const TOPUP_DATA = {
-  "Building": [
-    { name: "Oak Log", qty: 64, price: 1000, desc: "64 per stack" },
-    { name: "Spruce Log", qty: 64, price: 1000, desc: "64 per stack" },
-    { name: "Birch Log", qty: 64, price: 1000, desc: "64 per stack" },
-    { name: "Jungle Log", qty: 64, price: 1000, desc: "64 per stack" },
-    { name: "Acacia Log", qty: 64, price: 1000, desc: "64 per stack" },
-    { name: "Dark Oak Log", qty: 64, price: 1200, desc: "64 per stack" },
-    { name: "Mangrove Log", qty: 64, price: 1200, desc: "64 per stack" },
-    { name: "Cherry Log", qty: 64, price: 1300, desc: "64 per stack", popular: true }
-  ],
-  "Item Shop": [
-    { name: "Painting", price: 1500, desc: "Dekorasi" },
-    { name: "Item Frame", price: 1500, desc: "Display item" },
-    { name: "Glow Item Frame", price: 3000, desc: "Glow display", popular: true },
-    { name: "Armor Stand", price: 2000, desc: "Display armor" },
-    { name: "Blaze Rod", price: 1500, desc: "Material" },
-    { name: "Name Tag", price: 4000, desc: "Naming mobs" },
-    { name: "Lead", price: 2000, desc: "Mob leash" },
-    { name: "Beacon", price: 30000, desc: "Buff area", popular: true },
-    { name: "1s All Sapling", price: 2000, desc: "Stack sapling" },
-    { name: "Ender Chest", price: 5000, desc: "Per 1 item" },
-    { name: "Blast Furnace", price: 2000, desc: "Fast smelt" },
-    { name: "Smoker", price: 2000, desc: "Fast cook" },
-    { name: "16/1s Ender Pearl", price: 10000, desc: "16 pearl" }
-  ],
-  "Tools": [
-    { name: "Sword (Diamond)", price: 5000, desc: "No enchant" },
-    { name: "Axe (Diamond)", price: 5000, desc: "No enchant" },
-    { name: "Pickaxe (Diamond)", price: 5000, desc: "No enchant" },
-    { name: "Shovel (Diamond)", price: 5000, desc: "No enchant" },
-    { name: "Hoe (Diamond)", price: 5000, desc: "No enchant" },
-    { name: "Bow", price: 5000, desc: "No enchant" },
-    { name: "Crossbow", price: 5000, desc: "No enchant" },
-    { name: "Trident", price: 5000, desc: "No enchant", popular: true }
-  ],
-  "Armor": [
-    { name: "Helmet (Diamond)", price: 10000, desc: "No enchant" },
-    { name: "Chestplate (Diamond)", price: 10000, desc: "No enchant" },
-    { name: "Leggings (Diamond)", price: 10000, desc: "No enchant" },
-    { name: "Boots (Diamond)", price: 10000, desc: "No enchant" }
-  ],
-  "Ore": [
-    { name: "Coal", price: 500, desc: "Per 1 stack" },
-    { name: "Copper", price: 500, desc: "Per 1 stack" },
-    { name: "Iron", price: 1000, desc: "Per 1 stack" },
-    { name: "Gold", price: 2000, desc: "Per 1 stack" },
-    { name: "Lapis Lazuli", price: 5000, desc: "Per 1 stack" },
-    { name: "Amethyst", price: 3000, desc: "Per 1 stack" },
-    { name: "Redstone", price: 3500, desc: "Per 1 stack" },
-    { name: "Diamond", price: 10000, desc: "Per 1 stack", popular: true },
-    { name: "Emerald", price: 25000, desc: "Per 1 stack", popular: true }
-  ],
-  "Potion": [
-    { name: "Healing I", price: 2500, desc: "Per 1 item" },
-    { name: "Healing II", price: 4000, desc: "Per 1 item" },
-    { name: "Regeneration", price: 3000, desc: "Per 1 item" },
-    { name: "Strength I", price: 3500, desc: "Per 1 item" },
-    { name: "Strength II", price: 5000, desc: "Per 1 item" },
-    { name: "Speed II", price: 4500, desc: "Per 1 item" },
-    { name: "Fire Resistance", price: 3000, desc: "Per 1 item" },
-    { name: "Night Vision", price: 2500, desc: "Per 1 item" },
-    { name: "Invisibility", price: 4000, desc: "Per 1 item" },
-    { name: "Water Breathing", price: 3000, desc: "Per 1 item" },
-    { name: "Jump Boost", price: 2500, desc: "Per 1 item" },
-    { name: "Slow Falling", price: 3000, desc: "Per 1 item" },
-    { name: "Turtle Master", price: 6000, desc: "Per 1 item", popular: true },
-    { name: "Weakness", price: 2000, desc: "Per 1 item" },
-    { name: "Poison", price: 2500, desc: "Per 1 item" },
-    { name: "Slowness", price: 2000, desc: "Per 1 item" },
-    { name: "Harming", price: 3000, desc: "Per 1 item" },
-    { name: "Splash Potion (any)", price: 1000, desc: "+1k dari harga normal" },
-    { name: "Lingering Potion (any)", price: 2500, desc: "+2.5k dari harga normal" }
-  ],
-  "Tipped Arrow": [
-    { name: "Arrow of Healing", price: 3000, desc: "Per 1 stack" },
-    { name: "Arrow of Strength", price: 4000, desc: "Per 1 stack" },
-    { name: "Arrow of Speed", price: 3500, desc: "Per 1 stack" },
-    { name: "Arrow of Poison", price: 3000, desc: "Per 1 stack" },
-    { name: "Arrow of Harming", price: 4000, desc: "Per 1 stack" },
-    { name: "Arrow of Slowness", price: 2500, desc: "Per 1 stack" },
-    { name: "Arrow of Weakness", price: 2500, desc: "Per 1 stack" }
-  ],
-  "Music Disc": [
-    { name: "13", price: 6000, desc: "Per disc" },
-    { name: "Cat", price: 6000, desc: "Per disc" },
-    { name: "Blocks", price: 6000, desc: "Per disc" },
-    { name: "Chirp", price: 6000, desc: "Per disc" },
-    { name: "Far", price: 6000, desc: "Per disc" },
-    { name: "Mall", price: 6000, desc: "Per disc" },
-    { name: "Mellohi", price: 6000, desc: "Per disc" },
-    { name: "Stal", price: 6000, desc: "Per disc" },
-    { name: "Strad", price: 6000, desc: "Per disc" },
-    { name: "Ward", price: 6000, desc: "Per disc" },
-    { name: "11", price: 8000, desc: "Per disc" },
-    { name: "Wait", price: 8000, desc: "Per disc" },
-    { name: "Pigstep", price: 12000, desc: "Per disc", popular: true },
-    { name: "Otherside", price: 10000, desc: "Per disc" },
-    { name: "Relic", price: 15000, desc: "Per disc", popular: true }
-  ],
-  "Spawn Egg": [
-    { name: "Cow Egg", price: 8000, desc: "Per 2 item" },
-    { name: "Sheep Egg", price: 8000, desc: "Per 2 item" },
-    { name: "Pig Egg", price: 8000, desc: "Per 2 item" },
-    { name: "Chicken Egg", price: 7000, desc: "Per 2 item" },
-    { name: "Horse Egg", price: 10000, desc: "Per 2 item" },
-    { name: "Villager Egg", price: 5000, desc: "Per 2 item" },
-    { name: "Iron Golem Egg", price: 15000, desc: "Per 2 item" },
-    { name: "Snow Golem Egg", price: 8000, desc: "Per 2 item" },
-    { name: "Enderman Egg", price: 15000, desc: "Per 2 item" },
-    { name: "Piglin Egg", price: 10000, desc: "Per 2 item" },
-    { name: "Zombie Egg", price: 10000, desc: "Per 2 item" },
-    { name: "Skeleton Egg", price: 10000, desc: "Per 2 item" },
-    { name: "Creeper Egg", price: 15000, desc: "Per 2 item" },
-    { name: "Spider Egg", price: 10000, desc: "Per 2 item" },
-    { name: "Witch Egg", price: 20000, desc: "Per 2 item" },
-    { name: "Blaze Egg", price: 15000, desc: "Per 2 item" },
-    { name: "Guardian Egg", price: 25000, desc: "Per 2 item" },
-    { name: "Wither Skeleton Egg", price: 30000, desc: "Per 2 item", popular: true },
-    { name: "Boss Wither Egg", price: 200000, desc: "Per 2 item", popular: true }
-  ],
-  "Goat Horn": [
-    { name: "Goat Horn (Common)", price: 4000, desc: "Per item" },
-    { name: "Goat Horn (Rare)", price: 7000, desc: "Per item" },
-    { name: "Goat Horn (Bebas Pilih)", price: 20000, desc: "Pilih sendiri" }
-  ],
-  "Enchantment": [
-    { name: "Protection IV", price: 5000, desc: "Per 1 book" },
-    { name: "Sharpness V", price: 5000, desc: "Per 1 book" },
-    { name: "Efficiency V", price: 5000, desc: "Per 1 book" },
-    { name: "Unbreaking III", price: 4500, desc: "Per 1 book" },
-    { name: "Power V", price: 5000, desc: "Per 1 book" },
-    { name: "Feather Falling IV", price: 6000, desc: "Per 1 book" },
-    { name: "Fire Protection IV", price: 6000, desc: "Per 1 book" },
-    { name: "Blast Protection IV", price: 6000, desc: "Per 1 book" },
-    { name: "Projectile Prot IV", price: 6000, desc: "Per 1 book" },
-    { name: "Aqua Affinity", price: 6500, desc: "Per 1 book" },
-    { name: "Respiration III", price: 6500, desc: "Per 1 book" },
-    { name: "Punch II", price: 6000, desc: "Per 1 book" },
-    { name: "Flame", price: 6500, desc: "Per 1 book" },
-    { name: "Infinity", price: 7000, desc: "Per 1 book" },
-    { name: "Looting III", price: 7000, desc: "Per 1 book" },
-    { name: "Fortune III", price: 8000, desc: "Per 1 book", popular: true },
-    { name: "Mending", price: 12000, desc: "Per 1 book", popular: true },
-    { name: "Silk Touch", price: 9000, desc: "Per 1 book", popular: true },
-    { name: "Thorns III", price: 8500, desc: "Per 1 book" },
-    { name: "Depth Strider III", price: 7500, desc: "Per 1 book" },
-    { name: "Frost Walker II", price: 8000, desc: "Per 1 book" },
-    { name: "Soul Speed III", price: 9000, desc: "Per 1 book" },
-    { name: "Luck of the Sea III", price: 7500, desc: "Per 1 book" },
-    { name: "Lure III", price: 7000, desc: "Per 1 book" },
-    { name: "Swift Sneak III", price: 15000, desc: "Per 1 book", popular: true },
-    { name: "Riptide III", price: 9000, desc: "Per 1 book" },
-    { name: "Channeling", price: 10000, desc: "Per 1 book" },
-    { name: "Impaling V", price: 8000, desc: "Per 1 book" },
-    { name: "Piercing IV", price: 7500, desc: "Per 1 book" },
-    { name: "Multishot", price: 8000, desc: "Per 1 book" },
-    { name: "Quick Charge III", price: 8500, desc: "Per 1 book" }
-  ]
+// ============ DATA ============
+const PRODUCTS = {
+  building: {
+    label: 'Building & Log',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
+    items: [
+      {name:'All Log',price:1000,unit:'per 64',desc:'Semua jenis log tersedia'},
+      {name:'Crimson Stem',price:1500,unit:'per 64',desc:'Nether Crimson'},
+      {name:'Warped Stem',price:1500,unit:'per 64',desc:'Nether Warped'},
+      {name:'Bamboo Block',price:1500,unit:'per 64',desc:'Blok bambu'},
+      {name:'Stripped Log/Stem',price:500,unit:'+harga log',desc:'Any stripped variant (+Rp500 dari harga log)'},
+      {name:'Bamboo Mosaic',price:1500,unit:'per 64',desc:'Dekorasi bambu mosaic'},
+      {name:'Cobblestone',price:500,unit:'per 64',desc:'Batu dasar'},
+      {name:'Stone',price:700,unit:'per 64',desc:'Batu halus'},
+      {name:'Magma Block',price:1200,unit:'per 64',desc:'Blok magma nether',popular:true},
+      {name:'Glowstone',price:2000,unit:'per 64',desc:'Batu cahaya nether'},
+      {name:'Shroomlight',price:2500,unit:'per 64',desc:'Cahaya jamur nether'},
+      {name:'Wool (All Color)',price:1000,unit:'per 64',desc:'Semua warna tersedia'},
+      {name:'Carpet (All Color)',price:800,unit:'per 64',desc:'Karpet semua warna'},
+      {name:'Obsidian',price:5000,unit:'per 64',desc:'Material keras'},
+      {name:'Crying Obsidian',price:6000,unit:'per 64',desc:'Obsidian nangis',popular:true},
+      {name:'Amethyst Block',price:3000,unit:'per 64',desc:'Blok amethyst'},
+      {name:'Budding Amethyst',price:15000,unit:'per 1',desc:'Per 1 item langka'},
+      {name:'Amethyst Cluster',price:4000,unit:'per 64',desc:'Cluster amethyst'},
+    ]
+  },
+  decoration: {
+    label: 'Decoration & Functional',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+    items: [
+      {name:'Armor Stand',price:2000,unit:'per 1',desc:'Stand pajang armor'},
+      {name:'Bookshelf',price:2000,unit:'per 64',desc:'Rak buku enchanting'},
+      {name:'Wither Skeleton Skull',price:25000,unit:'per 1',desc:'Tengkorak wither skeleton',popular:true},
+    ]
+  },
+  itemshop: {
+    label: 'Item Shop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
+    items: [
+      {name:'Blaze Rod',price:1500,unit:'per 1',desc:'Drop dari blaze'},
+      {name:'Name Tag',price:4000,unit:'per 1',desc:'Tag nama entity',popular:true},
+      {name:'Lead',price:2000,unit:'per 1',desc:'Tali entity'},
+      {name:'Saddle',price:4000,unit:'per 1',desc:'Pelana kuda/babi'},
+      {name:'Beacon',price:30000,unit:'per 1',desc:'Beacon efek area',popular:true},
+      {name:'Conduit',price:40000,unit:'per 1',desc:'Conduit laut'},
+      {name:'Heart of the Sea',price:35000,unit:'per 1',desc:'Jantung laut'},
+      {name:'Nautilus Shell',price:5000,unit:'per 1',desc:'Cangkang nautilus'},
+      {name:'Ender Chest',price:5000,unit:'per 1',desc:'Dada ender portable',popular:true},
+      {name:'Chest',price:500,unit:'per 1',desc:'Dada penyimpanan'},
+      {name:'Trapped Chest',price:1000,unit:'per 1',desc:'Dada jebakan'},
+      {name:'Barrel',price:800,unit:'per 1',desc:'Tong penyimpanan'},
+      {name:'Shulker Box (Plain)',price:15000,unit:'per 1',desc:'Kotak shulker polos'},
+      {name:'Shulker Box (Warna)',price:16000,unit:'per 1',desc:'Kotak shulker berwarna'},
+      {name:'Anvil',price:5000,unit:'per 1',desc:'Landasan enchant'},
+      {name:'Enchanting Table',price:15000,unit:'per 1',desc:'Meja enchant',popular:true},
+      {name:'Brewing Stand',price:5000,unit:'per 1',desc:'Tempat brewing potion'},
+      {name:'Cauldron',price:2000,unit:'per 1',desc:'Kuali'},
+      {name:'Blast Furnace',price:2000,unit:'per 1',desc:'Tungku blast'},
+      {name:'Smoker',price:2000,unit:'per 1',desc:'Smoker masak'},
+      {name:'Furnace',price:800,unit:'per 1',desc:'Tungku biasa'},
+      {name:'Jukebox',price:10000,unit:'per 1',desc:'Pemutar musik'},
+      {name:'Note Block',price:1500,unit:'per 1',desc:'Blok nada'},
+      {name:'Lectern',price:2000,unit:'per 1',desc:'Podium buku'},
+      {name:'Smithing Table',price:2500,unit:'per 1',desc:'Meja smithing'},
+      {name:'Cartography Table',price:2000,unit:'per 1',desc:'Meja peta'},
+      {name:'Fletching Table',price:1500,unit:'per 1',desc:'Meja fletching'},
+      {name:'Loom',price:2000,unit:'per 1',desc:'Alat tenun'},
+      {name:'Stonecutter',price:2000,unit:'per 1',desc:'Pemotong batu'},
+      {name:'Grindstone',price:2000,unit:'per 1',desc:'Batu gerinda'},
+      {name:'Composter',price:1000,unit:'per 1',desc:'Pengomposan'},
+      {name:'Beehive',price:3000,unit:'per 1',desc:'Sarang lebah buatan'},
+      {name:'Bee Nest',price:5000,unit:'per 1',desc:'Sarang lebah alami'},
+      {name:'Honey Bottle',price:1500,unit:'per 1',desc:'Botol madu'},
+      {name:'Honeycomb',price:1000,unit:'per 1',desc:'Sisir madu'},
+      {name:'Lodestone',price:20000,unit:'per 1',desc:'Batu lodestone'},
+      {name:'Respawn Anchor',price:25000,unit:'per 1',desc:'Jangkar respawn nether',popular:true},
+      {name:'Shield',price:3000,unit:'per 1',desc:'Perisai tempur'},
+      {name:'Spyglass',price:5000,unit:'per 1',desc:'Teropong'},
+      {name:'Brush',price:3000,unit:'per 1',desc:'Kuas arkeologi'},
+      {name:'Clock',price:3000,unit:'per 1',desc:'Jam waktu'},
+      {name:'Compass',price:3000,unit:'per 1',desc:'Kompas'},
+      {name:'Recovery Compass',price:15000,unit:'per 1',desc:'Kompas respawn',popular:true},
+      {name:'Echo Shard',price:12000,unit:'per 1',desc:'Pecahan echo'},
+      {name:'Flint and Steel',price:1500,unit:'per 1',desc:'Batu api'},
+      {name:'Shears',price:1000,unit:'per 1',desc:'Gunting domba'},
+      {name:'Book and Quill',price:2000,unit:'per 1',desc:'Buku dan pena'},
+      {name:'Empty Map',price:1500,unit:'per 1',desc:'Peta kosong'},
+      {name:'Totem of Undying',price:15000,unit:'per 1',desc:'Totem kebangkitan',popular:true},
+      {name:'Elytra',price:150000,unit:'per 1',desc:'Sayap glider legendary',popular:true,legendary:true},
+      {name:'Nether Star',price:50000,unit:'per 1',desc:'Bintang nether dari Wither',legendary:true},
+      {name:'Eye of Ender',price:8000,unit:'per 16',desc:'Mata ender'},
+      {name:'Ender Pearl',price:10000,unit:'per 16',desc:'Mutiara ender'},
+      {name:'All Sapling',price:2000,unit:'per 1 stack',desc:'Semua jenis bibit pohon'},
+      {name:'Azalea',price:3000,unit:'per 1',desc:'Bunga azalea'},
+      {name:'Flowering Azalea',price:4000,unit:'per 1',desc:'Azalea berbunga'},
+    ]
+  },
+  tools: {
+    label: 'Tools Shop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+    items: [
+      {name:'Diamond Sword',price:5000,unit:'per 1',desc:'No enchant — free req enchant'},
+      {name:'Diamond Axe',price:5000,unit:'per 1',desc:'No enchant — free req enchant'},
+      {name:'Diamond Pickaxe',price:5000,unit:'per 1',desc:'No enchant — free req enchant',popular:true},
+      {name:'Diamond Shovel',price:5000,unit:'per 1',desc:'No enchant — free req enchant'},
+      {name:'Diamond Hoe',price:5000,unit:'per 1',desc:'No enchant — free req enchant'},
+      {name:'Bow',price:5000,unit:'per 1',desc:'No enchant — free req enchant',popular:true},
+      {name:'Crossbow',price:5000,unit:'per 1',desc:'No enchant — free req enchant'},
+      {name:'Trident',price:5000,unit:'per 1',desc:'No enchant — free req enchant',popular:true},
+      {name:'Fishing Rod',price:3000,unit:'per 1',desc:'Alat pancing'},
+      {name:'Carrot on a Stick',price:2000,unit:'per 1',desc:'Kendali babi'},
+      {name:'Warped Fungus on Stick',price:2000,unit:'per 1',desc:'Kendali hoglin'},
+    ]
+  },
+  armor: {
+    label: 'Armor Shop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    items: [
+      {name:'Diamond Helmet',price:10000,unit:'per 1',desc:'No enchant — diamond'},
+      {name:'Diamond Chestplate',price:10000,unit:'per 1',desc:'No enchant — diamond',popular:true},
+      {name:'Diamond Leggings',price:10000,unit:'per 1',desc:'No enchant — diamond'},
+      {name:'Diamond Boots',price:10000,unit:'per 1',desc:'No enchant — diamond'},
+      {name:'Iron Horse Armor',price:5000,unit:'per 1',desc:'Armor kuda besi'},
+      {name:'Golden Horse Armor',price:8000,unit:'per 1',desc:'Armor kuda emas'},
+      {name:'Diamond Horse Armor',price:15000,unit:'per 1',desc:'Armor kuda diamond',popular:true},
+    ]
+  },
+  netherite: {
+    label: 'Netherite Shop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+    items: [
+      {name:'Netherite Sword',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Axe',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Pickaxe',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Shovel',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Hoe',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Helmet',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Chestplate',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Leggings',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+      {name:'Netherite Boots',price:200000,unit:'per 1',desc:'LEGENDARY — free req enchant',legendary:true},
+    ]
+  },
+  ores: {
+    label: 'Ore Shop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>`,
+    items: [
+      {name:'Coal',price:500,unit:'per 64',desc:'Bahan bakar dasar'},
+      {name:'Copper Ingot',price:500,unit:'per 64',desc:'Ingot tembaga'},
+      {name:'Iron Ingot',price:1000,unit:'per 64',desc:'Ingot besi'},
+      {name:'Gold Ingot',price:2000,unit:'per 64',desc:'Ingot emas'},
+      {name:'Lapis Lazuli',price:5000,unit:'per 64',desc:'Bahan enchant'},
+      {name:'Amethyst Shard',price:3000,unit:'per 64',desc:'Pecahan amethyst'},
+      {name:'Redstone Dust',price:3500,unit:'per 64',desc:'Debu redstone'},
+      {name:'Diamond',price:10000,unit:'per 64',desc:'Material diamond',popular:true},
+      {name:'Emerald',price:25000,unit:'per 64',desc:'Mata uang villager',popular:true},
+      {name:'Quartz',price:2000,unit:'per 64',desc:'Kuarsa nether'},
+      {name:'Flint',price:500,unit:'per 64',desc:'Batu api'},
+    ]
+  },
+  materials: {
+    label: 'Material & Drop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,
+    items: [
+      {name:'Glowstone Dust',price:1500,unit:'per 64',desc:'Debu glowstone'},
+      {name:'Prismarine Shard',price:2000,unit:'per 64',desc:'Pecahan prismarine'},
+      {name:'Prismarine Crystals',price:2500,unit:'per 64',desc:'Kristal prismarine'},
+      {name:'Phantom Membrane',price:3000,unit:'per 64',desc:'Membran phantom'},
+      {name:'Ghast Tear',price:4000,unit:'per 64',desc:'Air mata ghast'},
+      {name:'Blaze Powder',price:2000,unit:'per 64',desc:'Serbuk blaze'},
+      {name:'Magma Cream',price:2000,unit:'per 64',desc:'Krim magma'},
+      {name:'Slime Ball',price:2000,unit:'per 64',desc:'Bola slime'},
+      {name:'Ender Pearl',price:5000,unit:'per 64',desc:'Mutiara ender',popular:true},
+      {name:'Shulker Shell',price:10000,unit:'per 64',desc:'Cangkang shulker',popular:true},
+      {name:'Leather',price:1000,unit:'per 64',desc:'Kulit hewan'},
+      {name:'Feather',price:500,unit:'per 64',desc:'Bulu ayam'},
+      {name:'String',price:800,unit:'per 64',desc:'Benang laba-laba'},
+      {name:'Gunpowder',price:1500,unit:'per 64',desc:'Bubuk mesiu'},
+      {name:'Bone Meal',price:800,unit:'per 64',desc:'Tepung tulang'},
+      {name:'Bone',price:800,unit:'per 64',desc:'Tulang'},
+      {name:'Spider Eye',price:1000,unit:'per 64',desc:'Mata laba-laba'},
+      {name:'Nether Wart',price:1500,unit:'per 64',desc:'Jamur nether'},
+    ]
+  },
+  potions: {
+    label: 'Potion Shop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l1 9H8L9 3z"/><path d="M6.5 12c0 3.5 2 6.5 5.5 6.5s5.5-3 5.5-6.5"/><path d="M8 12c.5 2 2 3.5 4 3.5"/></svg>`,
+    items: [
+      {name:'Healing I',price:2500,unit:'per 1',desc:'Potion penyembuhan'},
+      {name:'Healing II',price:4000,unit:'per 1',desc:'Penyembuhan kuat',popular:true},
+      {name:'Regeneration (0:45)',price:3000,unit:'per 1',desc:'Regen normal'},
+      {name:'Regeneration II (0:22)',price:5000,unit:'per 1',desc:'Regen kuat'},
+      {name:'Regeneration Extended',price:4500,unit:'per 1',desc:'Regen 1:30'},
+      {name:'Strength (3:00)',price:3500,unit:'per 1',desc:'Kekuatan 3 menit'},
+      {name:'Strength II (1:30)',price:5000,unit:'per 1',desc:'Kekuatan kuat',popular:true},
+      {name:'Strength Extended',price:5500,unit:'per 1',desc:'Kekuatan 8 menit'},
+      {name:'Speed (3:00)',price:3000,unit:'per 1',desc:'Kecepatan normal'},
+      {name:'Speed II (1:30)',price:4500,unit:'per 1',desc:'Kecepatan kuat',popular:true},
+      {name:'Speed Extended',price:5000,unit:'per 1',desc:'Kecepatan 8 menit'},
+      {name:'Fire Resistance (3:00)',price:3000,unit:'per 1',desc:'Tahan api'},
+      {name:'Fire Resistance Extended',price:4500,unit:'per 1',desc:'Tahan api 8 menit'},
+      {name:'Turtle Master I',price:6000,unit:'per 1',desc:'Turtle master lvl 1'},
+      {name:'Turtle Master II',price:8000,unit:'per 1',desc:'Turtle master lvl 2'},
+      {name:'Night Vision (3:00)',price:2500,unit:'per 1',desc:'Penglihatan malam'},
+      {name:'Night Vision Extended',price:4000,unit:'per 1',desc:'Penglihatan malam 8 menit'},
+      {name:'Invisibility (3:00)',price:4000,unit:'per 1',desc:'Tak kasat mata',popular:true},
+      {name:'Invisibility Extended',price:6000,unit:'per 1',desc:'Tak kasat mata 8 menit'},
+      {name:'Water Breathing (3:00)',price:3000,unit:'per 1',desc:'Bernafas dalam air'},
+      {name:'Water Breathing Extended',price:4500,unit:'per 1',desc:'Air 8 menit'},
+      {name:'Slow Falling (1:30)',price:3000,unit:'per 1',desc:'Jatuh lambat'},
+      {name:'Slow Falling Extended',price:4500,unit:'per 1',desc:'Jatuh lambat 4 menit'},
+      {name:'Jump Boost (3:00)',price:2500,unit:'per 1',desc:'Lompatan lebih tinggi'},
+      {name:'Jump Boost II (1:30)',price:4000,unit:'per 1',desc:'Lompat kuat'},
+      {name:'Jump Boost Extended',price:4000,unit:'per 1',desc:'Lompat 8 menit'},
+      {name:'Weakness (1:30)',price:2000,unit:'per 1',desc:'Efek lemah'},
+      {name:'Weakness Extended',price:3000,unit:'per 1',desc:'Lemah 4 menit'},
+      {name:'Poison (0:45)',price:2500,unit:'per 1',desc:'Efek racun'},
+      {name:'Poison II (0:21)',price:4000,unit:'per 1',desc:'Racun kuat'},
+      {name:'Poison Extended',price:3500,unit:'per 1',desc:'Racun 1:30'},
+      {name:'Slowness (1:30)',price:2000,unit:'per 1',desc:'Efek lambat'},
+      {name:'Slowness IV',price:3500,unit:'per 1',desc:'Lambat kuat'},
+      {name:'Slowness Extended',price:3000,unit:'per 1',desc:'Lambat 4 menit'},
+      {name:'Harming I',price:3000,unit:'per 1',desc:'Efek kerusakan'},
+      {name:'Harming II',price:5000,unit:'per 1',desc:'Kerusakan kuat'},
+      {name:'Splash Potion (any)',price:1000,unit:'+harga normal',desc:'+Rp1.000 dari harga normal'},
+      {name:'Lingering Potion (any)',price:2500,unit:'+harga normal',desc:'+Rp2.500 dari harga normal'},
+    ]
+  },
+  arrows: {
+    label: 'Tipped Arrow',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
+    items: [
+      {name:'Arrow (Normal)',price:500,unit:'per 64',desc:'Panah biasa'},
+      {name:'Tipped Arrow (Req Effect)',price:5000,unit:'per 64',desc:'Panah dengan efek request',popular:true},
+    ]
+  },
+  food: {
+    label: 'Food Shop',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+    items: [
+      {name:'Golden Carrot',price:5000,unit:'per 64',desc:'Makanan bergizi',popular:true},
+      {name:'Golden Apple',price:10000,unit:'per 64',desc:'Apel emas',popular:true},
+      {name:'Enchanted Golden Apple',price:50000,unit:'per 1',desc:'Apel emas enchant — NOTCH!',legendary:true},
+    ]
+  },
+  misc: {
+    label: 'Misc & Enchant',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    items: [
+      {name:'Turtle Spawn Egg',price:10000,unit:'per 2',desc:'Telur spawn kura-kura'},
+      {name:'Villager Spawn Egg',price:10000,unit:'per 2',desc:'Telur spawn villager'},
+      {name:'Goat Horn — Ponder',price:4000,unit:'per 1',desc:'Common variant'},
+      {name:'Goat Horn — Sing',price:4000,unit:'per 1',desc:'Common variant'},
+      {name:'Goat Horn — Seek',price:4000,unit:'per 1',desc:'Common variant'},
+      {name:'Goat Horn — Feel',price:4000,unit:'per 1',desc:'Common variant'},
+      {name:'Goat Horn — Admire',price:7000,unit:'per 1',desc:'Rare — Screaming Goat'},
+      {name:'Goat Horn — Call',price:7000,unit:'per 1',desc:'Rare — Screaming Goat'},
+      {name:'Goat Horn — Yearn',price:7000,unit:'per 1',desc:'Rare — Screaming Goat'},
+      {name:'Goat Horn — Dream',price:7000,unit:'per 1',desc:'Rare — Screaming Goat'},
+      {name:'Goat Horn (Bebas Pilih)',price:20000,unit:'per 1',desc:'Pilih bebas variant',popular:true},
+      {name:'Protection IV',price:5000,unit:'per book',desc:'Book enchant perlindungan',popular:true},
+      {name:'Sharpness V',price:5000,unit:'per book',desc:'Book enchant ketajaman',popular:true},
+      {name:'Efficiency V',price:5000,unit:'per book',desc:'Book enchant efisiensi'},
+      {name:'Unbreaking III',price:4500,unit:'per book',desc:'Book enchant ketahanan'},
+      {name:'Power V',price:5000,unit:'per book',desc:'Book enchant bow'},
+      {name:'Feather Falling IV',price:6000,unit:'per book',desc:'Book enchant boots'},
+      {name:'Fire Protection IV',price:6000,unit:'per book',desc:'Proteksi api'},
+      {name:'Blast Protection IV',price:6000,unit:'per book',desc:'Proteksi ledakan'},
+      {name:'Projectile Protection IV',price:6000,unit:'per book',desc:'Proteksi proyektil'},
+      {name:'Aqua Affinity',price:6500,unit:'per book',desc:'Mining dalam air'},
+      {name:'Respiration III',price:6500,unit:'per book',desc:'Nafas dalam air'},
+      {name:'Punch II',price:6000,unit:'per book',desc:'Knockback bow'},
+      {name:'Flame',price:6500,unit:'per book',desc:'Panah api'},
+      {name:'Infinity',price:7000,unit:'per book',desc:'Panah tak terbatas'},
+      {name:'Looting III',price:7000,unit:'per book',desc:'Loot lebih banyak',popular:true},
+      {name:'Fortune III',price:8000,unit:'per book',desc:'Fortune pickaxe',popular:true},
+      {name:'Mending',price:12000,unit:'per book',desc:'Perbaikan via XP',legendary:true},
+      {name:'Silk Touch',price:9000,unit:'per book',desc:'Ambil blok utuh',popular:true},
+      {name:'Thorns III',price:8500,unit:'per book',desc:'Duri balik'},
+      {name:'Depth Strider III',price:7500,unit:'per book',desc:'Cepat dalam air'},
+      {name:'Frost Walker II',price:8000,unit:'per book',desc:'Jalan di atas air'},
+      {name:'Soul Speed III',price:9000,unit:'per book',desc:'Cepat di soul sand'},
+      {name:'Luck of the Sea III',price:7500,unit:'per book',desc:'Fishing loot'},
+      {name:'Lure III',price:7000,unit:'per book',desc:'Mancing lebih cepat'},
+      {name:'Swift Sneak III',price:15000,unit:'per book',desc:'Jongkok cepat',popular:true},
+      {name:'Riptide III',price:9000,unit:'per book',desc:'Trident terbang'},
+      {name:'Channeling',price:10000,unit:'per book',desc:'Trident petir'},
+      {name:'Impaling V',price:8000,unit:'per book',desc:'Kerusakan air'},
+      {name:'Piercing IV',price:7500,unit:'per book',desc:'Crossbow tembus'},
+      {name:'Multishot',price:8000,unit:'per book',desc:'Tembak 3 arah'},
+      {name:'Quick Charge III',price:8500,unit:'per book',desc:'Reload crossbow cepat'},
+    ]
+  }
 };
 
-const KIT_DATA = [
+const KITS = [
   {
-    name: "Rubble Kit",
-    price: 5000,
-    items: [
-      "1 Set Iron Armor Protection IV",
-      "Iron Sword Unbreaking III",
-      "Iron Axe Unbreaking III",
-      "Iron Pickaxe Unbreaking III",
-      "Shield Unbreaking III",
-      "32x Golden Carrot"
-    ]
+    name:'Rubble Kit', price:5000, icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+    items:['1 Set Iron Armor — Protection IV','Iron Sword — Unbreaking III','Iron Axe — Unbreaking III','Iron Pickaxe — Unbreaking III','Shield — Unbreaking III','32x Golden Carrot']
   },
   {
-    name: "Drifter Kit",
-    price: 15000,
-    items: [
-      "1 Set Diamond Armor No enc",
-      "Iron Sword No enc",
-      "Iron Axe No enc",
-      "Iron Pickaxe No enc",
-      "Shield No enc",
-      "Bow enc Infinity + Power V",
-      "64 Golden Carrot",
-      "10 Golden Apple",
-      "1 stack Arrow"
-    ]
+    name:'Drifter Kit', price:15000, icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    items:['1 Set Diamond Armor — No enc','Iron Sword — No enc','Iron Axe + Pickaxe — No enc','Shield — No enc','Bow — Infinity + Power V','64 Golden Carrot','10 Golden Apple','1 Stack Arrow']
   },
   {
-    name: "Aureate Kit",
-    price: 30000,
-    items: [
-      "1 Set Diamond Armor Protection IV",
-      "Tools All Diamond Unbreaking III",
-      "20 Golden Apple",
-      "2s Golden Carrot",
-      "30 XP Bottle",
-      "Bow full enc",
-      "2s Arrow",
-      "2 Anvil"
-    ]
+    name:'Aureate Kit', price:30000, popular:true, icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+    items:['1 Set Diamond Armor — Protection IV','All Diamond Tools — Unbreaking III','20 Golden Apple','2 Stack Golden Carrot','30 XP Bottle','Bow Full Enchant','2 Stack Arrow','2 Anvil']
   },
   {
-    name: "Regalia Kit",
-    price: 50000,
-    items: [
-      "1 Set Diamond Armor Prot IV Unbreaking III",
-      "Tools All Diamond Full enc (Only Fortune)",
-      "32 Golden Apple",
-      "3s Golden Carrot",
-      "64 XP Bottle",
-      "Bow full enc",
-      "2s Arrow Effect",
-      "Trident No enc",
-      "Crossbow full enc",
-      "1 Ender Chest"
-    ]
+    name:'Regalia Kit', price:50000, popular:true, icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>`,
+    items:['1 Set Diamond Armor — Prot IV Unbreaking III','All Diamond Tools — Full enc (Fortune)','32 Golden Apple','3 Stack Golden Carrot','64 XP Bottle','Bow Full enc','2 Stack Arrow Effect','Trident — No enc','Crossbow — Full enc','1 Ender Chest']
   },
   {
-    name: "Empyreal Kit",
-    price: 80000,
-    popular: true,
-    items: [
-      "1 Set Diamond Armor Full enc",
-      "Tools All Diamond Full enc (Silk Touch + Fortune)",
-      "2s Golden Apple",
-      "5s Golden Carrot",
-      "2s XP Bottle",
-      "Bow full enc",
-      "4s Arrow Effect",
-      "Trident full enc",
-      "3s Ender Pearl",
-      "20 Diamond Block",
-      "5 Anvil",
-      "2 Ender Chest"
-    ]
+    name:'Empyreal Kit', price:80000, legendary:true, icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+    items:['1 Set Diamond Armor — Full enc','All Diamond Tools — Full enc (Silk + Fortune)','2 Stack Golden Apple','5 Stack Golden Carrot','2 Stack XP Bottle','Bow Full enc','4 Stack Arrow Effect','Trident — Full enc','3 Stack Ender Pearl','20 Diamond Block','5 Anvil','2 Ender Chest']
   }
 ];
 
-const MASK_DATA = [
-  { name: "Topeng Trial (7 Hari)", price: 10000, desc: "Request bebas, naik 10k tiap minggu", type: "trial" },
-  { name: "Topeng Permanent", price: 100000, desc: "Request bebas, free garansi selamanya", type: "permanent", popular: true },
-  { name: "Enchant Unbreaking 10", price: 20000, desc: "Request enchant untuk topeng", type: "enchant" },
-  { name: "Enchant Protection 10", price: 50000, desc: "Request enchant untuk topeng", type: "enchant" }
+const MASK_KITS = [
+  {name:'Topeng Trial',price:10000,unit:'7 hari',icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`,desc:'1 Topeng Request bebas — garansi via Jasa Admin',items:['1 Topeng request bebas','Enchant: Vanishing (default)','Garansi: Order via Jasa Admin','Perpanjang: Order garansi di Jasa Admin']},
+  {name:'Topeng Permanent',price:100000,unit:'Selamanya',icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,desc:'1 Topeng Request bebas — garansi permanen',items:['1 Topeng request bebas','Enchant: Vanishing (default)','Garansi GRATIS jika mati apapun','Tidak perlu perpanjang'],legendary:true},
+  {name:'Unbreaking Enchant',price:20000,unit:'per enchant',icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,desc:'Request Unbreaking 10 di topeng kamu',items:['Unbreaking level 10','Topeng lebih tahan lama','Tambahan di topeng yang sudah ada']},
+  {name:'Protection Enchant',price:50000,unit:'per enchant',icon:`<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,desc:'Request Protection 10 di topeng kamu',items:['Protection level 10','Perlindungan maksimal','Tambahan di topeng yang sudah ada'],popular:true},
 ];
 
-const ADMIN_DATA = [
-  { name: "unBanned (Mati)", price: 15000, desc: "Membuka ban karakter yang mati" },
-  { name: "Teleport (Mager)", price: 10000, desc: "Jasa teleport ke lokasi tujuan" },
-  { name: "Reff Garansi Kit", price: 5000, desc: "Per minggu, expired bisa diperpanjang. Garansi aktif ketika mati bug (mati roleplay/issue tidak termasuk)" },
-  { name: "unBanned IP (Rusuh)", price: 50000, desc: "Membuka ban IP address" }
+const ADMIN_SERVICES = [
+  {name:'unBanned (mati)',price:15000,desc:'Layanan unbanned akun yang terkena banned karena mati',icon:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>`},
+  {name:'Teleport (mager)',price:10000,desc:'Layanan teleport ke lokasi yang kamu inginkan',icon:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`},
+  {name:'Reff Garansi Kit',price:5000,desc:'Per minggu, expired bisa diperpanjang. Garansi aktif ketika mati bug (mati roleplay/issue tidak termasuk)',icon:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`},
+  {name:'unBanned IP (rusuh)',price:50000,desc:'Layanan unbanned IP untuk yang terkena banned karena rusuh',icon:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`},
+  {name:'Topeng — Garansi Perpanjang',price:5000,desc:'Perpanjang garansi topeng trial yang sudah expired',icon:`<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>`},
 ];
 
 const BOOST_PLAYER = [
-  { multi: "x2", price: 30000, dur: "2 hari" },
-  { multi: "x3", price: 50000, dur: "2 hari" },
-  { multi: "x4", price: 65000, dur: "2 hari" },
-  { multi: "x5", price: 85000, dur: "2 hari" },
-  { multi: "x6", price: 105000, dur: "2 hari" },
-  { multi: "x7", price: 125000, dur: "2 hari" },
-  { multi: "x8", price: 150000, dur: "2 hari" }
+  {mult:'x2',price:30000,period:'2 hari'},
+  {mult:'x3',price:50000,period:'2 hari'},
+  {mult:'x4',price:65000,period:'2 hari'},
+  {mult:'x5',price:85000,period:'2 hari'},
+  {mult:'x6',price:105000,period:'2 hari'},
+  {mult:'x7',price:125000,period:'2 hari'},
+  {mult:'x8',price:150000,period:'2 hari'},
 ];
 
 const BOOST_CLAN = [
-  { multi: "x2", price: 30000, dur: "2 hari" },
-  { multi: "x3", price: 50000, dur: "2 hari" },
-  { multi: "x4", price: 65000, dur: "2 hari" },
-  { multi: "x5", price: 85000, dur: "2 hari" },
-  { multi: "x6", price: 105000, dur: "2 hari" },
-  { multi: "x7", price: 125000, dur: "2 hari" },
-  { multi: "x8", price: 150000, dur: "2 hari" }
+  {mult:'x2',price:30000,period:'2 hari',clan:true},
+  {mult:'x3',price:50000,period:'2 hari',clan:true},
+  {mult:'x4',price:65000,period:'2 hari',clan:true},
+  {mult:'x5',price:85000,period:'2 hari',clan:true},
+  {mult:'x6',price:105000,period:'2 hari',clan:true},
+  {mult:'x7',price:125000,period:'2 hari',clan:true},
+  {mult:'x8',price:150000,period:'2 hari',clan:true},
 ];
 
-// ==================== STATE ====================
+// ============ CART ============
 let cart = [];
-let currentCategory = "Building";
-let currentPage = "home";
-let productQuantities = {};
+let currentView = 'home';
+let currentBoostMode = 'player';
 
-// ==================== UTILITIES ====================
-function formatRp(n) {
-  return "Rp " + n.toLocaleString("id-ID");
+function formatPrice(p) {
+  return 'Rp ' + p.toLocaleString('id-ID');
 }
 
-function generateId(name) {
-  return name.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase();
+function getCartCount() {
+  return cart.reduce((s,i)=>s+i.qty,0);
 }
 
-// SVG icon helpers
-const ICONS = {
-  check: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>',
-  cube: '<svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
-  layers: '<svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
-  gem: '<svg viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3l3 6-2 13"/><path d="M2 9h20"/></svg>',
-  sword: '<svg viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>',
-  shield: '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-  flask: '<svg viewBox="0 0 24 24"><path d="M9 3h6v5l4 9H5l4-9V3z"/><line x1="9" y1="3" x2="15" y2="3"/></svg>',
-  target: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
-  disc: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>',
-  egg: '<svg viewBox="0 0 24 24"><path d="M12 22c4.418 0 8-4.477 8-10S16.418 2 12 2 4 6.477 4 12s3.582 10 8 10z"/></svg>',
-  horn: '<svg viewBox="0 0 24 24"><path d="M2 22L12 2l10 20"/><path d="M7 14h10"/></svg>',
-  book: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
-  star: '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
-};
-
-const CATEGORY_ICONS = {
-  "Building": ICONS.layers,
-  "Item Shop": ICONS.cube,
-  "Tools": ICONS.sword,
-  "Armor": ICONS.shield,
-  "Ore": ICONS.gem,
-  "Potion": ICONS.flask,
-  "Tipped Arrow": ICONS.target,
-  "Music Disc": ICONS.disc,
-  "Spawn Egg": ICONS.egg,
-  "Goat Horn": ICONS.horn,
-  "Enchantment": ICONS.book
-};
-
-// ==================== NAVIGATION ====================
-function navigate(page) {
-  currentPage = page;
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('page-' + page);
-  if (target) target.classList.add('active');
-
-  // Update menu active state
-  document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-  const activeMenu = document.querySelector(`.menu-item[data-page="${page}"]`);
-  if (activeMenu) activeMenu.classList.add('active');
-
-  // Close side menu
-  toggleMenu(false);
-
-  // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  // Render page content
-  if (page === 'topup') renderTopupPage();
-  if (page === 'kit') renderKitPage();
-  if (page === 'admin') renderAdminPage();
-  if (page === 'boost') renderBoostPage();
-  if (page === 'cart') renderCartPage();
-
-  // Reveal animations
-  requestAnimationFrame(() => {
-    setTimeout(() => revealElements(), 100);
-  });
-}
-
-// ==================== MENU ====================
-function toggleMenu(forceState) {
-  const menu = document.getElementById('sideMenu');
-  const overlay = document.getElementById('menuOverlay');
-  const shouldOpen = forceState !== undefined ? forceState : !menu.classList.contains('open');
-
-  if (shouldOpen) {
-    menu.classList.add('open');
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  } else {
-    menu.classList.remove('open');
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-}
-
-document.getElementById('menuBtn').addEventListener('click', () => toggleMenu());
-
-// ==================== TOPUP RENDERING ====================
-function renderTopupTabs() {
-  const tabs = document.getElementById('topupTabs');
-  tabs.innerHTML = '';
-  Object.keys(TOPUP_DATA).forEach(cat => {
-    const tab = document.createElement('div');
-    tab.className = `cat-tab${cat === currentCategory ? ' active' : ''}`;
-    tab.textContent = cat;
-    tab.onclick = () => {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderTopupGrid();
-    };
-    tabs.appendChild(tab);
-  });
-}
-
-function renderTopupGrid() {
-  const grid = document.getElementById('topupGrid');
-  const items = TOPUP_DATA[currentCategory] || [];
-  grid.innerHTML = '';
-
-  items.forEach((item, i) => {
-    const id = generateId(currentCategory + '_' + item.name);
-    if (!productQuantities[id]) productQuantities[id] = 1;
-
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.style.transitionDelay = `${i * 0.04}s`;
-
-    const iconSvg = CATEGORY_ICONS[currentCategory] || ICONS.cube;
-
-    card.innerHTML = `
-      ${item.popular ? '<span class="badge badge-popular">Popular</span>' : ''}
-      <div class="p-icon">${iconSvg}</div>
-      <div class="p-info">
-        <div class="p-name">${item.name}</div>
-        <div class="p-desc">${item.desc}</div>
-      </div>
-      <div class="p-price">${formatRp(item.price)} <small>/item</small></div>
-      <div class="p-actions">
-        <div class="qty-control">
-          <button class="qty-btn" onclick="changeQty('${id}', -1, ${item.price})">-</button>
-          <div class="qty-num" id="qty-${id}">${productQuantities[id]}</div>
-          <button class="qty-btn" onclick="changeQty('${id}', 1, ${item.price})">+</button>
-        </div>
-        <button class="btn-buy" onclick="addToCart('${item.name}', ${item.price}, '${id}', '${currentCategory}')">Beli</button>
-      </div>
-    `;
-    grid.appendChild(card);
-
-    // Stagger reveal
-    requestAnimationFrame(() => {
-      setTimeout(() => card.classList.add('revealed'), 50 + i * 40);
-    });
-  });
-}
-
-function renderTopupPage() {
-  renderTopupTabs();
-  renderTopupGrid();
-}
-
-// ==================== QUANTITY ====================
-function changeQty(id, delta, price) {
-  if (!productQuantities[id]) productQuantities[id] = 1;
-  let newVal = productQuantities[id] + delta;
-  if (newVal < 1) newVal = 1;
-  if (newVal > 64) newVal = 64;
-  productQuantities[id] = newVal;
-
-  const el = document.getElementById('qty-' + id);
-  if (el) {
-    el.style.transform = 'scale(1.2)';
-    el.style.color = 'var(--primary-light)';
-    el.textContent = newVal;
-    setTimeout(() => {
-      el.style.transform = 'scale(1)';
-      el.style.color = 'var(--text-primary)';
-    }, 150);
-  }
-}
-
-// ==================== CART ====================
-function addToCart(name, price, id, category) {
-  const qty = productQuantities[id] || 1;
-  const existing = cart.find(c => c.id === id);
-
-  if (existing) {
-    existing.qty = Math.min(existing.qty + qty, 64);
-  } else {
-    cart.push({ id, name, price, qty, category });
-  }
-
-  updateCartBadge();
-  showToast(`${name} x${qty} ditambahkan ke keranjang`);
-
-  // Reset quantity
-  productQuantities[id] = 1;
-  const el = document.getElementById('qty-' + id);
-  if (el) el.textContent = '1';
-}
-
-function addKitToCart(name, price) {
-  const id = generateId('kit_' + name);
-  const existing = cart.find(c => c.id === id);
-  if (existing) {
-    existing.qty = Math.min(existing.qty + 1, 64);
-  } else {
-    cart.push({ id, name, price, qty: 1, category: 'Kit' });
-  }
-  updateCartBadge();
-  showToast(`${name} ditambahkan ke keranjang`);
-}
-
-function addServiceToCart(name, price) {
-  const id = generateId('svc_' + name);
-  const existing = cart.find(c => c.id === id);
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ id, name, price, qty: 1, category: 'Service' });
-  }
-  updateCartBadge();
-  showToast(`${name} ditambahkan ke keranjang`);
-}
-
-function addBoostToCart(name, price) {
-  const id = generateId('boost_' + name);
-  const existing = cart.find(c => c.id === id);
-  if (!existing) {
-    cart.push({ id, name, price, qty: 1, category: 'Boost' });
-  }
-  updateCartBadge();
-  showToast(`${name} ditambahkan ke keranjang`);
-}
-
-function removeFromCart(index) {
-  const el = document.querySelectorAll('.cart-item')[index];
-  if (el) {
-    el.classList.add('removing');
-    setTimeout(() => {
-      cart.splice(index, 1);
-      updateCartBadge();
-      renderCartPage();
-    }, 350);
-  } else {
-    cart.splice(index, 1);
-    updateCartBadge();
-    renderCartPage();
-  }
-}
-
-function updateCartQty(index, delta) {
-  let newVal = cart[index].qty + delta;
-  if (newVal < 1) newVal = 1;
-  if (newVal > 64) newVal = 64;
-  cart[index].qty = newVal;
-  updateCartBadge();
-  renderCartPage();
+function getCartTotal() {
+  return cart.reduce((s,i)=>s+(i.price*i.qty),0);
 }
 
 function updateCartBadge() {
   const badge = document.getElementById('cartBadge');
-  const count = cart.reduce((sum, item) => sum + item.qty, 0);
+  const count = getCartCount();
   badge.textContent = count;
   badge.classList.toggle('show', count > 0);
 }
 
-function getCartTotal() {
-  return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+function addToCart(name, price, unit, qty) {
+  const existing = cart.find(i=>i.name===name);
+  if(existing) {
+    existing.qty = Math.min(64, existing.qty + qty);
+  } else {
+    cart.push({name, price, unit, qty: Math.min(64,qty)});
+  }
+  updateCartBadge();
+  showToast(`${name} ditambahkan ke keranjang!`);
 }
 
-// ==================== RENDER PAGES ====================
-function renderKitPage() {
-  const grid = document.getElementById('kitGrid');
-  grid.innerHTML = '';
+function removeFromCart(index) {
+  const item = document.querySelector(`[data-cart-index="${index}"]`);
+  if(item) {
+    item.classList.add('removing');
+    setTimeout(()=>{ cart.splice(index,1); renderCart(); updateCartBadge(); }, 300);
+  }
+}
 
-  KIT_DATA.forEach((kit, i) => {
+function updateCartQty(index, delta) {
+  cart[index].qty = Math.max(1, Math.min(64, cart[index].qty + delta));
+  renderCart();
+  updateCartBadge();
+}
+
+// ============ TOAST ============
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if(!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:30px;right:24px;background:linear-gradient(135deg,#1f1c22,#261e23);border:1px solid rgba(177,18,38,0.4);color:#f0edf2;padding:12px 18px;border-radius:12px;font-size:0.82rem;font-weight:600;z-index:999;transform:translateY(20px);opacity:0;transition:all 0.3s ease;max-width:280px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,0.4);';
+    document.body.appendChild(t);
+  }
+  t.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4183A" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>${msg}`;
+  t.style.transform = 'translateY(0)';
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateY(20px)'; }, 2500);
+}
+
+// ============ NAVIGATION ============
+function navigateTo(view) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(`view-${view}`).classList.add('active');
+  document.querySelectorAll('.side-nav-item').forEach(i=>{
+    i.classList.toggle('active', i.dataset.view===view);
+  });
+  currentView = view;
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(view==='topup') renderTopup();
+  if(view==='kit') renderKit();
+  if(view==='admin') renderAdmin();
+  if(view==='boost') renderBoost('player');
+  if(view==='cart') renderCart();
+}
+
+// ============ SIDE MENU ============
+function toggleSideMenu() {
+  const menu = document.getElementById('sideMenu');
+  const overlay = document.getElementById('sideOverlay');
+  const isOpen = menu.classList.contains('active');
+  if(isOpen) {
+    closeSideMenu();
+  } else {
+    menu.classList.add('active');
+    overlay.classList.add('active');
+    // Stagger animation
+    document.querySelectorAll('.side-nav-item').forEach((item,i)=>{
+      item.style.transition = `all 0.35s cubic-bezier(0.16,1,0.3,1) ${i*0.05+0.1}s`;
+      item.classList.add('revealed');
+    });
+  }
+}
+
+function closeSideMenu() {
+  document.getElementById('sideMenu').classList.remove('active');
+  document.getElementById('sideOverlay').classList.remove('active');
+  document.querySelectorAll('.side-nav-item').forEach(item=>{
+    item.classList.remove('revealed');
+    item.style.transition = '';
+  });
+}
+
+// ============ TOPUP RENDER ============
+let activeCategory = 'all';
+
+function renderTopup(filter) {
+  const grid = document.getElementById('topupGrid');
+  const catFilter = document.getElementById('topupCategoryFilter');
+
+  // Render category badges
+  if(!catFilter.children.length) {
+    const allBtn = document.createElement('div');
+    allBtn.className = 'cat-badge active';
+    allBtn.textContent = 'Semua';
+    allBtn.onclick = ()=>{ activeCategory='all'; document.querySelectorAll('.cat-badge').forEach(b=>b.classList.remove('active')); allBtn.classList.add('active'); renderTopup(); };
+    catFilter.appendChild(allBtn);
+    Object.entries(PRODUCTS).forEach(([key,cat])=>{
+      const btn = document.createElement('div');
+      btn.className = 'cat-badge';
+      btn.textContent = cat.label;
+      btn.onclick = ()=>{ activeCategory=key; document.querySelectorAll('.cat-badge').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderTopup(); };
+      catFilter.appendChild(btn);
+    });
+  }
+
+  grid.innerHTML = '';
+  let delay = 0;
+  Object.entries(PRODUCTS).forEach(([key,cat])=>{
+    if(activeCategory !== 'all' && activeCategory !== key) return;
+    cat.items.forEach(item=>{
+      if(filter && !item.name.toLowerCase().includes(filter.toLowerCase())) return;
+      const card = createProductCard(item, cat.icon, delay);
+      grid.appendChild(card);
+      delay += 0.06;
+    });
+  });
+
+  // Trigger reveal
+  setTimeout(()=>{
+    grid.querySelectorAll('.product-card').forEach(c=>c.classList.add('revealed'));
+  }, 50);
+}
+
+function createProductCard(item, icon, delay=0, isBoost=false) {
+  const card = document.createElement('div');
+  card.className = 'product-card' + (item.legendary ? ' featured' : '');
+  card.style.transitionDelay = delay + 's';
+
+  let badges = '';
+  if(item.popular) badges += '<span class="badge-popular">Popular</span>';
+  if(item.legendary) badges += '<span class="badge-legendary">Legendary</span>';
+
+  const id = Math.random().toString(36).substr(2,9);
+
+  card.innerHTML = `
+    <div class="product-icon-wrap">${icon}</div>
+    <div class="product-info">
+      ${badges ? `<div class="product-badges">${badges}</div>` : ''}
+      <div class="product-name">${item.name}</div>
+      <div class="product-desc">${item.desc || ''}</div>
+      <div class="product-price">${formatPrice(item.price)}<span class="price-unit">${item.unit||''}</span></div>
+      <div class="qty-row">
+        <div class="qty-btn" onclick="changeQty('${id}',-1)" id="minus-${id}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <span class="qty-num" id="qty-${id}">1</span>
+        <div class="qty-btn" onclick="changeQty('${id}',1)" id="plus-${id}">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="qty-total">Total: <span id="total-${id}">${formatPrice(item.price)}</span></div>
+      </div>
+      <button class="btn-buy" onclick="handleBuy('${item.name}',${item.price},'${item.unit||''}','${id}')">Beli Sekarang</button>
+    </div>
+  `;
+
+  // 3D card tilt effect
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `translateY(-4px) scale(1.01) rotateX(${-y*5}deg) rotateY(${x*5}deg)`;
+  });
+  card.addEventListener('mouseleave', ()=>{
+    card.style.transform = '';
+    card.style.transition = 'all 0.4s cubic-bezier(0.16,1,0.3,1)';
+  });
+
+  return card;
+}
+
+window._qtys = {};
+window.changeQty = function(id, delta) {
+  if(!window._qtys[id]) window._qtys[id] = 1;
+  const newQty = Math.max(1, Math.min(64, window._qtys[id] + delta));
+  window._qtys[id] = newQty;
+  const qtyEl = document.getElementById(`qty-${id}`);
+  const totalEl = document.getElementById(`total-${id}`);
+  const plusBtn = document.getElementById(`plus-${id}`);
+  const minusBtn = document.getElementById(`minus-${id}`);
+  if(qtyEl) {
+    qtyEl.style.transform = 'scale(1.3)';
+    qtyEl.textContent = newQty;
+    setTimeout(()=>{ qtyEl.style.transform = 'scale(1)'; qtyEl.style.transition = 'transform 0.15s ease'; }, 100);
+  }
+  // We need price — find it from card
+  if(plusBtn) {
+    plusBtn.classList.toggle('disabled', newQty >= 64);
+    if(newQty >= 64) plusBtn.onclick = null;
+    else plusBtn.onclick = ()=>changeQty(id, 1);
+  }
+  if(minusBtn) {
+    minusBtn.classList.toggle('disabled', newQty <= 1);
+  }
+  // Update total — get price from data attribute
+  const card = plusBtn ? plusBtn.closest('.product-card') : null;
+  if(card) {
+    const priceText = card.querySelector('.product-price')?.childNodes[0]?.textContent || '';
+    const price = parseInt(priceText.replace(/[^0-9]/g,'')) || 0;
+    if(totalEl) totalEl.textContent = formatPrice(price * newQty);
+  }
+};
+
+window.handleBuy = function(name, price, unit, id) {
+  const qty = window._qtys[id] || 1;
+  addToCart(name, price, unit, qty);
+};
+
+// ============ KIT RENDER ============
+function renderKit() {
+  const grid = document.getElementById('kitGrid');
+  if(grid.children.length > 0) return;
+
+  KITS.forEach((kit,i)=>{
     const card = document.createElement('div');
     card.className = 'kit-card';
-    card.style.transitionDelay = `${i * 0.08}s`;
-
+    card.style.transitionDelay = (i*0.08)+'s';
+    let badge = kit.legendary ? '<span class="badge-legendary" style="margin-left:auto;">Legendary</span>' :
+                kit.popular ? '<span class="badge-popular" style="margin-left:auto;">Popular</span>' : '';
     card.innerHTML = `
-      ${kit.popular ? '<span class="badge badge-popular">Best Value</span>' : ''}
-      <div class="kit-header">
-        <div style="display:flex;align-items:center;gap:14px;">
-          <div class="kit-visual">
-            <div class="box-3d">
-              <div class="box-face box-front"></div>
-              <div class="box-face box-top"></div>
-              <div class="box-face box-right"></div>
-            </div>
-          </div>
-          <div>
-            <div class="kit-name">${kit.name}</div>
-            <div class="kit-price">${formatRp(kit.price)}</div>
-          </div>
+      <div class="kit-card-header">
+        <div class="kit-icon">${kit.icon}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;">${badge}</div>
+          <div class="kit-name">${kit.name}</div>
+          <div class="kit-price">${formatPrice(kit.price)}</div>
         </div>
       </div>
-      <ul class="kit-items">
-        ${kit.items.map(item => `<li>${ICONS.check}<span>${item}</span></li>`).join('')}
-      </ul>
-      <div class="kit-buy-row">
-        <div style="font-size:12px;color:var(--text-muted);">${kit.items.length} item dalam kit</div>
-        <button class="kit-buy-btn" onclick="addKitToCart('${kit.name}', ${kit.price})">Beli Kit</button>
+      <div class="kit-card-body">
+        <ul class="kit-items">
+          ${kit.items.map(i=>`<li class="kit-item"><span class="kit-item-dot"></span><span>${i}</span></li>`).join('')}
+        </ul>
+        <button class="btn-buy" onclick="addToCart('${kit.name}',${kit.price},'per kit',1);showToast('${kit.name} ditambahkan!')">Beli Kit</button>
       </div>
     `;
     grid.appendChild(card);
-    requestAnimationFrame(() => setTimeout(() => card.classList.add('revealed'), 100 + i * 80));
   });
+
+  setTimeout(()=>grid.querySelectorAll('.kit-card').forEach(c=>c.classList.add('revealed')), 50);
 
   // Mask Kit
-  const maskGrid = document.getElementById('maskGrid');
-  maskGrid.innerHTML = '';
-
-  MASK_DATA.forEach((mask, i) => {
-    const card = document.createElement('div');
-    card.className = 'mask-card';
-    card.style.transitionDelay = `${i * 0.08}s`;
-
-    card.innerHTML = `
-      ${mask.popular ? '<span class="badge badge-limited">Exclusive</span>' : ''}
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
-        <div class="p-icon" style="width:48px;height:48px;">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--primary-light)" stroke-width="1.8" stroke-linecap="round">
-            <path d="M12 3C7 3 3 7.5 3 10c0 1.5 1 3 2 4l1 6h12l1-6c1-1 2-2.5 2-4 0-2.5-4-7-9-7z"/>
-            <circle cx="9" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/>
-          </svg>
+  const maskGrid = document.getElementById('maskKitGrid');
+  if(maskGrid.children.length === 0) {
+    MASK_KITS.forEach((kit,i)=>{
+      const card = document.createElement('div');
+      card.className = 'kit-card';
+      card.style.transitionDelay = (i*0.08)+'s';
+      let badge = kit.legendary ? '<span class="badge-legendary" style="margin-left:auto;">Permanent</span>' :
+                  kit.popular ? '<span class="badge-popular" style="margin-left:auto;">Popular</span>' : '';
+      card.innerHTML = `
+        <div class="kit-card-header">
+          <div class="kit-icon" style="background:linear-gradient(135deg,var(--gold),var(--primary));">${kit.icon}</div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;">${badge}</div>
+            <div class="kit-name">${kit.name}</div>
+            <div class="kit-price">${formatPrice(kit.price)}<span style="font-size:0.7rem;color:var(--text-muted);margin-left:4px;">/${kit.unit}</span></div>
+          </div>
         </div>
-        <div>
-          <div class="p-name" style="font-size:15px;">${mask.name}</div>
-          <div class="p-desc">${mask.desc}</div>
+        <div class="kit-card-body">
+          <ul class="kit-items">
+            ${kit.items.map(i=>`<li class="kit-item"><span class="kit-item-dot" style="background:var(--gold);"></span><span>${i}</span></li>`).join('')}
+          </ul>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:12px;">${kit.desc}</div>
+          <button class="btn-buy" style="background:linear-gradient(135deg,var(--primary-deep),var(--gold));" onclick="addToCart('${kit.name}',${kit.price},'/${kit.unit}',1);showToast('${kit.name} ditambahkan!')">Beli Sekarang</button>
         </div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div class="p-price" style="font-size:18px;">${formatRp(mask.price)}</div>
-        <button class="kit-buy-btn" onclick="addServiceToCart('${mask.name}', ${mask.price})">Beli</button>
-      </div>
-    `;
-    maskGrid.appendChild(card);
-    requestAnimationFrame(() => setTimeout(() => card.classList.add('revealed'), 100 + i * 80));
-  });
+      `;
+      maskGrid.appendChild(card);
+    });
+    setTimeout(()=>maskGrid.querySelectorAll('.kit-card').forEach(c=>c.classList.add('revealed')), 100);
+  }
 }
 
-function renderAdminPage() {
+// ============ ADMIN RENDER ============
+function renderAdmin() {
   const grid = document.getElementById('adminGrid');
-  grid.innerHTML = '';
+  if(grid.children.length > 0) return;
 
-  const adminIcons = [
-    '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>',
-    '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10z"/></svg>',
-    '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
-    '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'
-  ];
-
-  ADMIN_DATA.forEach((svc, i) => {
+  ADMIN_SERVICES.forEach((svc,i)=>{
     const card = document.createElement('div');
     card.className = 'admin-card';
-    card.style.transitionDelay = `${i * 0.08}s`;
-
+    card.style.transitionDelay = (i*0.07)+'s';
     card.innerHTML = `
-      <div class="a-icon">${adminIcons[i]}</div>
-      <div class="a-info">
-        <div class="a-name">${svc.name}</div>
-        <div class="a-desc">${svc.desc}</div>
+      <div class="admin-icon">${svc.icon}</div>
+      <div class="admin-info">
+        <div class="admin-name">${svc.name}</div>
+        <div class="admin-desc">${svc.desc}</div>
       </div>
-      <div class="a-right">
-        <div class="a-price">${formatRp(svc.price)}</div>
-        <button class="btn-buy" style="margin-top:8px;" onclick="addServiceToCart('${svc.name}', ${svc.price})">Beli</button>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+        <div class="admin-price">${formatPrice(svc.price)}</div>
+        <button class="btn-buy" style="width:auto;padding:7px 14px;font-size:0.75rem;" onclick="addToCart('${svc.name} (Jasa Admin)',${svc.price},'per layanan',1)">Pesan</button>
       </div>
     `;
     grid.appendChild(card);
-    requestAnimationFrame(() => setTimeout(() => card.classList.add('revealed'), 100 + i * 80));
   });
+
+  setTimeout(()=>grid.querySelectorAll('.admin-card').forEach(c=>c.classList.add('revealed')), 50);
 }
 
-function renderBoostPage() {
-  // Player boosts
-  const playerGrid = document.getElementById('boostPlayerGrid');
-  playerGrid.innerHTML = '';
+// ============ BOOST RENDER ============
+function renderBoost(mode) {
+  currentBoostMode = mode;
+  const grid = document.getElementById('boostGrid');
+  grid.innerHTML = '';
+  const list = mode === 'player' ? BOOST_PLAYER : BOOST_CLAN;
+  const isClan = mode === 'clan';
 
-  BOOST_PLAYER.forEach((b, i) => {
+  list.forEach((b,i)=>{
     const card = document.createElement('div');
     card.className = 'boost-card';
-    card.style.transitionDelay = `${i * 0.06}s`;
-
+    card.style.transitionDelay = (i*0.07)+'s';
+    const limited = b.mult === 'x8';
     card.innerHTML = `
-      <span class="badge badge-limited">Limited</span>
-      <div class="boost-multiplier">${b.multi}</div>
-      <div class="boost-duration">${b.dur}</div>
-      <div class="boost-price">${formatRp(b.price)}</div>
-      <button class="boost-buy" onclick="addBoostToCart('Boost Player ${b.multi}', ${b.price})">Beli Boost</button>
+      ${limited ? '<div style="position:absolute;top:14px;right:14px;"><span class="badge-limited">HOT</span></div>' : ''}
+      <div class="boost-mult">${b.mult}</div>
+      <div class="boost-label">Boost Skill XP${isClan ? ' — Per Clan' : ' — Per Player'}</div>
+      <div class="boost-price">${formatPrice(b.price)}</div>
+      <div class="boost-period">${b.period}${isClan ? ' • Harga dijumlah all member' : ''}</div>
+      <button class="btn-buy" onclick="addToCart('Boost ${b.mult}${isClan?' (Clan)':''}',${b.price},'${b.period}',1)">Beli Boost</button>
     `;
-    playerGrid.appendChild(card);
-    requestAnimationFrame(() => setTimeout(() => card.classList.add('revealed'), 100 + i * 60));
+    grid.appendChild(card);
   });
 
-  // Clan boosts
-  const clanGrid = document.getElementById('boostClanGrid');
-  clanGrid.innerHTML = '';
-
-  BOOST_CLAN.forEach((b, i) => {
-    const card = document.createElement('div');
-    card.className = 'boost-card';
-    card.style.transitionDelay = `${i * 0.06}s`;
-
-    card.innerHTML = `
-      <span class="badge badge-limited">Clan</span>
-      <div class="boost-multiplier">${b.multi}</div>
-      <div class="boost-duration">${b.dur} / clan</div>
-      <div class="boost-price">${formatRp(b.price)}</div>
-      <p style="font-size:10px;color:var(--text-muted);margin-bottom:12px;">x jumlah member</p>
-      <button class="boost-buy" onclick="addBoostToCart('Boost Clan ${b.multi}', ${b.price})">Beli Boost</button>
-    `;
-    clanGrid.appendChild(card);
-    requestAnimationFrame(() => setTimeout(() => card.classList.add('revealed'), 100 + i * 60));
-  });
+  setTimeout(()=>grid.querySelectorAll('.boost-card').forEach(c=>c.classList.add('revealed')), 50);
 }
 
-function renderCartPage() {
+function switchBoostTab(btn, mode) {
+  document.querySelectorAll('.boost-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderBoost(mode);
+}
+
+// ============ CART RENDER ============
+function renderCart() {
   const content = document.getElementById('cartContent');
-  const countEl = document.getElementById('cartCount');
-  const totalItems = cart.reduce((s, i) => s + i.qty, 0);
-  countEl.textContent = `${totalItems} item di keranjang`;
-
-  if (cart.length === 0) {
+  if(cart.length === 0) {
     content.innerHTML = `
-      <div class="empty-cart">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-        </svg>
-        <h3>Keranjang Kosong</h3>
-        <p>Belum ada item yang ditambahkan</p>
-        <button class="btn-shop" onclick="navigate('topup')">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-          Mulai Belanja
-        </button>
+      <div class="cart-empty">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <p style="font-size:1rem;font-weight:600;margin-bottom:8px;color:var(--text-secondary);">Keranjang masih kosong</p>
+        <p>Yuk, mulai belanja!</p>
+        <button class="btn-buy" style="width:auto;margin:20px auto 0;padding:10px 24px;display:block;" onclick="navigateTo('topup')">Lihat Produk</button>
       </div>
     `;
     return;
   }
 
-  let itemsHtml = '';
-  cart.forEach((item, idx) => {
-    itemsHtml += `
-      <div class="cart-item">
-        <div class="ci-info">
-          <div class="ci-name">${item.name}</div>
-          <div class="ci-unit">${formatRp(item.price)} /item &middot; ${item.category}</div>
-        </div>
-        <div class="qty-control">
-          <button class="qty-btn" onclick="updateCartQty(${idx}, -1)">-</button>
-          <div class="qty-num">${item.qty}</div>
-          <button class="qty-btn" onclick="updateCartQty(${idx}, 1)">+</button>
-        </div>
-        <div class="ci-subtotal">${formatRp(item.price * item.qty)}</div>
-        <button class="remove-btn" onclick="removeFromCart(${idx})">
-          <svg viewBox="0 0 24 24" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-    `;
-  });
-
   const total = getCartTotal();
-
   content.innerHTML = `
     <div class="cart-layout">
-      <div class="cart-items-list">${itemsHtml}</div>
+      <div class="cart-items-section">
+        <div class="cart-items-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Item Pesanan (${cart.length} item)
+        </div>
+        <div id="cartItemsList">
+          ${cart.map((item,i)=>`
+            <div class="cart-item" data-cart-index="${i}">
+              <div class="cart-item-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">${formatPrice(item.price)} ${item.unit||''}</div>
+                <div class="cart-qty-row">
+                  <div class="cart-qty-btn" onclick="updateCartQty(${i},-1)">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </div>
+                  <span class="cart-qty-num">${item.qty}</span>
+                  <div class="cart-qty-btn" onclick="updateCartQty(${i},1)">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </div>
+                  <span style="font-size:0.72rem;color:var(--text-muted);">Max 64</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                <div class="cart-item-subtotal">${formatPrice(item.price*item.qty)}</div>
+                <button class="cart-remove-btn" onclick="removeFromCart(${i})" title="Hapus">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
       <div class="cart-summary">
-        <h3>Ringkasan</h3>
-        <div class="summary-row">
-          <span>Total Item</span>
-          <span>${totalItems}</span>
+        <h3>Ringkasan Pesanan</h3>
+        ${cart.map(i=>`
+          <div class="cart-summary-row">
+            <span>${i.name} x${i.qty}</span>
+            <span style="color:var(--text-primary);font-weight:600;">${formatPrice(i.price*i.qty)}</span>
+          </div>
+        `).join('')}
+        <div class="cart-summary-divider"></div>
+        <div class="cart-total-row">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-amount">${formatPrice(total)}</span>
         </div>
-        <div class="summary-row">
-          <span>Jenis Produk</span>
-          <span>${cart.length}</span>
+        <button class="btn-checkout" onclick="openCheckout()">
+          Bayar Sekarang
+          <svg style="margin-left:6px;vertical-align:middle;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+        <div style="margin-top:12px;text-align:center;font-size:0.72rem;color:var(--text-muted);">
+          Transfer ke DANA: <strong style="color:var(--text-secondary);">081249377875</strong><br>atau minta QRIS
         </div>
-        <div class="summary-total">
-          <span class="label">Total</span>
-          <span class="amount">${formatRp(total)}</span>
-        </div>
-        <button class="btn-checkout" onclick="openCheckoutModal()">Bayar Sekarang</button>
       </div>
     </div>
   `;
 }
 
-// ==================== CHECKOUT MODAL ====================
-function openCheckoutModal() {
-  if (cart.length === 0) return;
-
+// ============ CHECKOUT MODAL ============
+function openCheckout() {
+  if(cart.length===0) return;
+  const total = getCartTotal();
   const modal = document.getElementById('checkoutModal');
-  const itemsEl = document.getElementById('modalItems');
-  const totalEl = document.getElementById('modalTotal');
+  const body = document.getElementById('modalBody');
+  const footer = document.getElementById('modalFooter');
 
-  let html = '';
-  cart.forEach(item => {
-    html += `
-      <div class="modal-item">
-        <span>${item.name} x${item.qty}</span>
-        <span>${formatRp(item.price * item.qty)}</span>
+  body.innerHTML = `
+    ${cart.map(i=>`
+      <div class="modal-item-row">
+        <span class="modal-item-name">${i.name} x${i.qty}</span>
+        <span class="modal-item-amount">${formatPrice(i.price*i.qty)}</span>
       </div>
-    `;
-  });
+    `).join('')}
+    <div class="modal-total-row">
+      <span class="modal-total-label">Total Pembayaran</span>
+      <span class="modal-total-amount">${formatPrice(total)}</span>
+    </div>
+    <div class="modal-payment-info">
+      <strong>Metode Pembayaran:</strong><br>
+      Transfer DANA: <strong>081249377875</strong><br>
+      atau minta QRIS ke owner.<br><br>
+      Setelah transfer, kirim bukti ke WhatsApp owner.
+    </div>
+  `;
 
-  itemsEl.innerHTML = html;
-  totalEl.textContent = formatRp(getCartTotal());
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
+  const waMsg = buildWhatsAppMessage(total);
+  footer.innerHTML = `
+    <button class="btn-whatsapp" onclick="sendToWhatsApp()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+      Konfirmasi via WhatsApp
+    </button>
+  `;
+
+  modal.classList.add('active');
 }
 
-function closeCheckoutModal() {
-  document.getElementById('checkoutModal').classList.remove('open');
-  document.body.style.overflow = '';
+function buildWhatsAppMessage(total) {
+  let items = cart.map(i=>`- ${i.name} x${i.qty} = ${formatPrice(i.price*i.qty)}`).join('\n');
+  return `Saya mau Topup:\n${items}\n\nTotal: ${formatPrice(total)}\n\nSilahkan kirim bukti transfer ke owner, dan transfer di DANA 081249377875/minta QRIS jika payment mau QRIS`;
 }
 
 function sendToWhatsApp() {
-  const phone = '819070424636';
-  let msg = '*Pesanan Topup Lunive Universe*\n\n';
-
-  cart.forEach(item => {
-    msg += `- ${item.name} x${item.qty} = ${formatRp(item.price * item.qty)}\n`;
-  });
-
-  msg += `\n*Total: ${formatRp(getCartTotal())}*\n\n`;
-  msg += '_Mohon kirimkan bukti transfer setelah pembayaran._';
-
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  const total = getCartTotal();
+  const msg = buildWhatsAppMessage(total);
+  const url = `https://wa.me/819070424636?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
-  closeCheckoutModal();
+  closeModal();
 }
 
-// ==================== TOAST ====================
-function showToast(message) {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerHTML = `
-    <svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-    <span>${message}</span>
-  `;
-  container.appendChild(toast);
-
-  requestAnimationFrame(() => toast.classList.add('show'));
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 400);
-  }, 3000);
+function closeModal() {
+  document.getElementById('checkoutModal').classList.remove('active');
 }
 
-// ==================== SCROLL EFFECTS ====================
-function revealElements() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
+// ============ SEARCH ============
+let searchTimeout;
+function handleSearch(val) {
+  clearTimeout(searchTimeout);
+  searchTimeout = setTimeout(()=>{
+    const q = val.trim();
+    if(!q) {
+      if(currentView === 'search') navigateTo('home');
+      return;
+    }
+    performSearch(q);
+  }, 250);
+}
+
+function performSearch(q) {
+  const results = [];
+  Object.entries(PRODUCTS).forEach(([key,cat])=>{
+    cat.items.forEach(item=>{
+      if(item.name.toLowerCase().includes(q.toLowerCase()) || (item.desc||'').toLowerCase().includes(q.toLowerCase())) {
+        results.push({...item, catIcon: cat.icon});
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
-  document.querySelectorAll('.reveal-item, .feature-card, .donatur-badge').forEach(el => {
-    observer.observe(el);
   });
-}
+  KITS.forEach(kit=>{
+    if(kit.name.toLowerCase().includes(q.toLowerCase())) {
+      results.push({...kit, price: kit.price, unit:'per kit', desc:'Paket kit lengkap', catIcon: kit.icon});
+    }
+  });
+  ADMIN_SERVICES.forEach(svc=>{
+    if(svc.name.toLowerCase().includes(q.toLowerCase())) {
+      results.push({...svc, unit:'per layanan', desc: svc.desc, catIcon: svc.icon});
+    }
+  });
 
-// Scroll progress
-window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-  document.getElementById('scrollProgress').style.width = progress + '%';
+  const header = document.getElementById('searchResultsHeader');
+  const grid = document.getElementById('searchResultsGrid');
+  const noRes = document.getElementById('searchNoResults');
 
-  // Header style
-  document.getElementById('header').classList.toggle('scrolled', scrollTop > 20);
-
-  // Back to top
-  document.getElementById('backTop').classList.toggle('show', scrollTop > 400);
-});
-
-// ==================== SEARCH ====================
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('input', (e) => {
-  const query = e.target.value.toLowerCase().trim();
-  if (currentPage !== 'topup') {
-    navigate('topup');
-  }
-
-  if (!query) {
-    renderTopupGrid();
-    return;
-  }
-
-  // Search across all categories
-  const grid = document.getElementById('topupGrid');
+  header.innerHTML = `Hasil pencarian untuk <span class="search-highlight">"${q}"</span> — <span style="color:var(--text-muted);">${results.length} item</span>`;
   grid.innerHTML = '';
-  let results = [];
+  noRes.style.display = results.length ? 'none' : 'block';
 
-  Object.keys(TOPUP_DATA).forEach(cat => {
-    TOPUP_DATA[cat].forEach(item => {
-      if (item.name.toLowerCase().includes(query)) {
-        results.push({ ...item, category: cat });
-      }
-    });
-  });
-
-  results.forEach((item, i) => {
-    const id = generateId(item.category + '_' + item.name);
-    if (!productQuantities[id]) productQuantities[id] = 1;
-
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.style.transitionDelay = `${i * 0.04}s`;
-
-    const iconSvg = CATEGORY_ICONS[item.category] || ICONS.cube;
-
-    card.innerHTML = `
-      <div class="p-icon">${iconSvg}</div>
-      <div class="p-info">
-        <div class="p-name">${item.name}</div>
-        <div class="p-desc">${item.desc} &middot; ${item.category}</div>
-      </div>
-      <div class="p-price">${formatRp(item.price)} <small>/item</small></div>
-      <div class="p-actions">
-        <div class="qty-control">
-          <button class="qty-btn" onclick="changeQty('${id}', -1, ${item.price})">-</button>
-          <div class="qty-num" id="qty-${id}">${productQuantities[id]}</div>
-          <button class="qty-btn" onclick="changeQty('${id}', 1, ${item.price})">+</button>
-        </div>
-        <button class="btn-buy" onclick="addToCart('${item.name}', ${item.price}, '${id}', '${item.category}')">Beli</button>
-      </div>
-    `;
+  let delay = 0;
+  results.forEach(item=>{
+    const card = createProductCard(item, item.catIcon, delay);
     grid.appendChild(card);
-    requestAnimationFrame(() => setTimeout(() => card.classList.add('revealed'), 50 + i * 40));
+    delay += 0.05;
   });
+  setTimeout(()=>grid.querySelectorAll('.product-card').forEach(c=>c.classList.add('revealed')),50);
 
-  if (results.length === 0) {
-    grid.innerHTML = `
-      <div style="grid-column:1/-1;text-align:center;padding:40px;">
-        <p style="color:var(--text-muted);font-size:14px;">Tidak ada produk ditemukan untuk "${e.target.value}"</p>
-      </div>
-    `;
-  }
+  // Switch to search view
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-search').classList.add('active');
+  currentView = 'search';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ============ SCROLL REVEAL ============
+const revealObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+    }
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+function observeCards() {
+  document.querySelectorAll('.product-card:not(.revealed), .kit-card:not(.revealed), .admin-card:not(.revealed), .boost-card:not(.revealed)').forEach(el=>{
+    revealObserver.observe(el);
+  });
+}
+
+// ============ TOPBAR SCROLL ============
+window.addEventListener('scroll', ()=>{
+  document.getElementById('topbar').classList.toggle('scrolled', window.scrollY > 20);
 });
 
-// Ctrl+K shortcut
-document.addEventListener('keydown', (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-    e.preventDefault();
-    searchInput.focus();
-  }
-  if (e.key === 'Escape') {
-    toggleMenu(false);
-    closeCheckoutModal();
-    searchInput.blur();
-  }
-});
-
-// ==================== PARTICLES ====================
+// ============ PARTICLES ============
 function createParticles() {
-  const container = document.getElementById('particles');
-  for (let i = 0; i < 12; i++) {
+  for(let i=0;i<8;i++) {
     const p = document.createElement('div');
     p.className = 'particle';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (6 + Math.random() * 8) + 's';
-    p.style.animationDelay = (Math.random() * 5) + 's';
-    p.style.width = (2 + Math.random() * 3) + 'px';
-    p.style.height = p.style.width;
-    container.appendChild(p);
+    const size = Math.random()*3+1;
+    p.style.cssText = `
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}%;
+      background:${Math.random()>0.5 ? 'rgba(177,18,38,0.4)' : 'rgba(201,168,76,0.3)'};
+      animation-duration:${Math.random()*15+10}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    document.body.appendChild(p);
   }
 }
 
-// ==================== INIT ====================
-document.addEventListener('DOMContentLoaded', () => {
+// ============ INIT ============
+document.addEventListener('DOMContentLoaded', ()=>{
   createParticles();
-  revealElements();
-  updateCartBadge();
+  // Init home cards reveal
+  setTimeout(()=>{
+    document.querySelectorAll('#view-home .product-card').forEach((c,i)=>{
+      setTimeout(()=>c.classList.add('revealed'), i*80);
+    });
+  }, 300);
 });
 
 // Close modal on overlay click
-document.getElementById('checkoutModal').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('checkoutModal')) {
-    closeCheckoutModal();
+document.getElementById('checkoutModal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+// Keyboard shortcut
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape') closeModal();
+  if(e.key === '/' && e.target !== document.getElementById('searchInput')) {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
   }
 });
+
+// Observe dynamically added cards
+const mutObs = new MutationObserver(()=>observeCards());
+mutObs.observe(document.getElementById('app'), {childList:true, subtree:true});
 </script>
 </body>
 </html>
